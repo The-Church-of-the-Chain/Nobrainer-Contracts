@@ -12,12 +12,18 @@ interface BRAIN {
 
 contract FeeDistributor {
   using SafeMath for uint256;
-  address constant public brainAddress = 0xEA3cB156745a8d281A5fC174186C976F2dD04c2E;
+  address public brainAddress = 0xEA3cB156745a8d281A5fC174186C976F2dD04c2E;
+
+  constructor(address _brain, address _farm, address _art) public {
+    brainAddress = _brain;
+    farmAddress = _farm;
+    artistFundAddress = _art;
+  }
 
   // Fees ratio out of 10,000. Ratio must add up to 10,000
 
   address public burnAddress = address(1);
-  uint256 public burnRatio = 500;
+  uint256 public burnRatio = 1250;
 
   address public devAddress1 = 0x08d19746Ee0c0833FC5EAF98181eB91DAEEb9abB;
   uint256 public devRatio1 = 500;
@@ -25,8 +31,11 @@ contract FeeDistributor {
   address public devAddress2 = 0xB03832FE8f62b27F5e278F0eEe65b5Ace875D984;
   uint256 public devRatio2 = 500;
 
-  address public farmAddress; // To Be Set
-  uint256 public farmRatio = 8500;
+  address public artistFundAddress;
+  uint256 public artistFundRatio = 250;
+
+  address public farmAddress;
+  uint256 public farmRatio = 7500;
 
   function pendingFarmAmount() public view returns (uint256) {
     uint256 balance = BRAIN(brainAddress).balanceOf(address(this));
@@ -48,6 +57,7 @@ contract FeeDistributor {
       uint256 fraction = balance.div(10000);
       if (fraction > 0) {
         BRAIN(brainAddress).transfer(burnAddress, fraction.mul(burnRatio));
+        BRAIN(brainAddress).transfer(artistFundAddress, fraction.mul(artistFundRatio));
         BRAIN(brainAddress).transfer(devAddress1, fraction.mul(devRatio1));
         BRAIN(brainAddress).transfer(devAddress2, fraction.mul(devRatio2));
         BRAIN(brainAddress).transfer(farmAddress, fraction.mul(farmRatio));

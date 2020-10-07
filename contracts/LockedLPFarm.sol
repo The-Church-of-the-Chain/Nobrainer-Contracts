@@ -3,6 +3,7 @@ pragma solidity ^0.6.2;
 import "@openzeppelin/contracts/math/SafeMath.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "./IBrainLootbox.sol";
 
 library SafeMathInt {
   function mul(int256 a, int256 b) internal pure returns (int256) {
@@ -49,9 +50,9 @@ library SafeMathUint {
   }
 }
 
-interface IBrainLootbox {
-    function getPrice(uint256 _id) external view returns (uint256);
-    function redeem(uint256 id) external returns (uint256);
+interface IFeeDistributor {
+  function processTransfer() external;
+  function pendingFarmAmount() external view returns (uint256);
 }
 
 contract LockedLPFarm is Ownable {
@@ -60,8 +61,23 @@ contract LockedLPFarm is Ownable {
     using SafeMathInt for int256;
     
     address public LPAddress;
-    address public BrainAddress = 0xEA3cB156745a8d281A5fC174186C976F2dD04c2E;
+    address public DistributorAddress;
+    address public BrainAddress;
     address public LootboxAddress;
+
+    constructor(address _brain, address _lp, address _distributor) public {
+      LPAddress = _lp;
+      DistributorAddress = _distributor;
+      BrainAddress = _brain;
+    }
+
+    function setLootboxAddress(address _address) public onlyOwner {
+      LootboxAddress = _address;
+    }
+
+    function setDistributorAddress(address _address) public onlyOwner {
+      DistributorAddress = _address;
+    }
 
 	mapping(address => uint256) private lpBalance;
 	mapping(address => uint256) public lastUpdateTime;
@@ -162,6 +178,13 @@ contract LockedLPFarm is Ownable {
     
     function withdrawableDividendOf(address _owner) public view returns(uint256) {
         return accumulativeDividendOf(_owner).sub(withdrawnDividends[_owner]);
+    }
+
+    function pendingDividendsOf(address _owner) public view returns (uint256) {
+	uint256 pending = IFeeDistributor(DistributorAddress).pendingFarmAmount();
+	uint256 magnified = magnifiedDividendPerShare.add(pending.mul(magnitude) / totalSupply);
+	uint256 accumulativeDiv = magnified.mul(balanceOf(_owner)).toInt256Safe().add(magnifiedDividendCorrections[_owner]).toUint256Safe() / magnitude;
+	return accumulativeDiv.sub(withdrawnDividends[_owner]);
     }
     
     function withdrawDividend() public {

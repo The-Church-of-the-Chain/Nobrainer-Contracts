@@ -18,11 +18,14 @@ contract BrainNFT is ERC1155, AccessControl {
   mapping(uint256 => uint256) public totalSupply;
   mapping(uint256 => uint256) public circulatingSupply;
 
+  event CardAdded(uint256 id, uint256 maxSupply);
+
   function addCard(uint256 maxSupply) public returns (uint256) {
     require(hasRole(MINTER_ROLE, msg.sender), "Caller is not a minter");
     require(maxSupply > 0, "Maximum supply can not be 0");
-    cards++;
+    cards = cards.add(1);
     totalSupply[cards] = maxSupply;
+    emit CardAdded(cards, maxSupply);
     return cards;
   }
 
@@ -33,8 +36,8 @@ contract BrainNFT is ERC1155, AccessControl {
     _mint(to, id, amount, "");
   }
     
-  function burn(address account, uint256 id, uint256 amount) public {
-    _burn(account, id, amount);
+  function burn(uint256 id, uint256 amount) public {
+    _burn(msg.sender, id, amount);
   }
 
 }

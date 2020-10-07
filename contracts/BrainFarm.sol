@@ -3,17 +3,21 @@ pragma solidity ^0.6.2;
 import "@openzeppelin/contracts/math/SafeMath.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-
-interface BrainLootbox {
-  function getPrice(uint256 _id) external view returns (uint256);
-  function redeem(uint256 id) external returns (uint256);
-}
+import "./IBrainLootbox.sol";
 
 contract BrainFarm is Ownable {
   using SafeMath for uint256;
 
-  address public BrainAddress = 0xEA3cB156745a8d281A5fC174186C976F2dD04c2E;
+  constructor(address _brain) public {
+    BrainAddress = _brain;
+  }
+
+  address public BrainAddress;
   address public LootboxAddress;
+
+  function setLootboxAddress(address _address) public onlyOwner {
+    LootboxAddress = _address;
+  }
 
   mapping(address => uint256) private brainBalance;
   mapping(address => uint256) public lastUpdateTime;
@@ -59,10 +63,10 @@ contract BrainFarm is Ownable {
   }
     
   function redeem(uint256 _lootbox) public updateReward(msg.sender) {
-    uint256 price = BrainLootbox(LootboxAddress).getPrice(_lootbox);
+    uint256 price = IBrainLootbox(LootboxAddress).getPrice(_lootbox);
     require(price > 0, "Loot not found");
     require(points[msg.sender] >= price, "Not enough points to redeem");
-    BrainLootbox(LootboxAddress).redeem(_lootbox);
+    IBrainLootbox(LootboxAddress).redeem(_lootbox);
     points[msg.sender] = points[msg.sender].sub(price);
   }
 }

@@ -13,11 +13,13 @@ interface IBrainNFT {
 
 contract BrainLootbox is Ownable {
   using SafeMath for uint256;
-  address public farmAddress;
   address public NFTAddress;
+  mapping(address => bool) public isFarmAddress;
 
-  constructor(address _farm) public {
-    farmAddress = _farm;
+  constructor(address _brainFarm, address _lockedLPFarm, address _NFTAddress) public {
+    isFarmAddress[_brainFarm] = true;
+    isFarmAddress[_lockedLPFarm] = true;
+    NFTAddress = _NFTAddress;
   }
 
   event AddLootBox(uint256 id);
@@ -61,15 +63,16 @@ contract BrainLootbox is Ownable {
   }
 
   function redeem(uint256 id, address to) public returns (uint256) {
-    require(msg.sender == farmAddress, "Only NFT Farm can call this method");
+    require(isFarmAddress[msg.sender] == true, "Only NFT Farm can call this method");
     require(id != 0 && id <= createdLootboxes, "Lootbox does not exist");
     require(lootbox[id].totalCards > 0, "No cards left in lootbox");
     uint256 rand = uint256(keccak256(abi.encodePacked(now, lootbox[id].totalCards, lootbox[id].seed, block.difficulty)));
     lootbox[id].seed = rand;
     uint256 pickedCard = rand.mod(lootbox[id].totalCards);
     uint256 counted;
+    uint256[] memory _cardAmounts = lootbox[id].cardAmounts;
     for (uint256 i = 0; i < lootbox[id].cardIds.length; i++) {
-      counted = counted.add(lootbox[id].cardAmounts[i]);
+      counted = counted.add(_cardAmounts[i]);
       if (pickedCard < counted) {
         IBrainNFT(NFTAddress).mint(to, lootbox[id].cardIds[i], 1);
         lootbox[id].cardAmounts[i] = lootbox[id].cardAmounts[i].sub(1);
