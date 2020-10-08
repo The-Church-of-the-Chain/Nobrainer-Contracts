@@ -470,10 +470,10 @@
 			]
 		},
 		"localhost/contracts/ERC1155.sol": {
-			"keccak256": "0xb2dba131ec68c817fd6b8945c67f69125bf51f41b420841c33987bc89dc1a7fe",
+			"keccak256": "0x904919b6a743453bebb947dc55be26b120e11b84d808b1145ebf108f36fc8aa4",
 			"urls": [
-				"bzz-raw://38b6b767f43556460270b9a6fbd8bac6bfb2fe2cdf3765deef681a1b9812b970",
-				"dweb:/ipfs/QmXb12XV9vA7Dw4pHbV2RLc98z4jDTbHzgMLMEQPDNXhag"
+				"bzz-raw://e396c6fd595414463e42fe492e7df0d615769e94bebdd39a02a3761ad61f4f3b",
+				"dweb:/ipfs/QmUbXoRaJuJVfEfypm93J3nY3yvEvJSStpWJZANbrqBzJK"
 			]
 		},
 		"localhost/contracts/Strings.sol": {

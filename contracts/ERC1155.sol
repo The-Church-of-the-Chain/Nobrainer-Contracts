@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.6.0;
+pragma solidity 0.6.2;
 
 import "./Strings.sol";
 import "@openzeppelin/contracts/token/ERC1155/IERC1155.sol";

@@ -1,7 +1,7 @@
 // Brain Fee Distributor
 // https://nobrainer.finance/
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.6.2;
+pragma solidity 0.6.2;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/math/SafeMath.sol";

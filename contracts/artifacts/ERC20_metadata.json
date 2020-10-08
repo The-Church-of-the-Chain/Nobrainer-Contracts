@@ -382,10 +382,10 @@
 			]
 		},
 		"localhost/contracts/ERC20.sol": {
-			"keccak256": "0xaa52b76d582f088995eb736a60d27e8269d3b5517e528a6b1b12b5f903084d95",
+			"keccak256": "0x43f2b1131b98c106367b44db572fe8a1654c4e82f32c361c1f1f1d2442dafb71",
 			"urls": [
-				"bzz-raw://0a34c34889b0b5545ebd3bd58bf70551f58eee44365999a4d1fe531ebbeb057b",
-				"dweb:/ipfs/QmQozDV1cUEwbjHsVDoReBeZcCfAt3ejJvdjneDUiZ5kPh"
+				"bzz-raw://7d82cb7adc7ff5b53c1248a1d1d94e8136ae37bb44d25e790ce4215e0b63cb28",
+				"dweb:/ipfs/QmPJqxTeZwv2jyGjf5DUADjtubjzeaTnPgNUNDjtTT8dxZ"
 			]
 		}
 	},

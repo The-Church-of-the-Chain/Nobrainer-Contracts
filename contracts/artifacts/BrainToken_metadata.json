@@ -542,20 +542,6 @@
 		"remappings": []
 	},
 	"sources": {
-		"@openzeppelin/contracts/GSN/Context.sol": {
-			"keccak256": "0xd9e1cdbea4cf7c51ac26f5782db0fb3d78c1b37e090547e83aef497a727a18f5",
-			"urls": [
-				"bzz-raw://5017e004334d7579774232e18f739ee9eb39438d03c49a9451a35e315c28761b",
-				"dweb:/ipfs/QmNb8Q8C6WLgtWqCE7iL5T1UN52Q6QsE7ZtVc6ppcvViXe"
-			]
-		},
-		"@openzeppelin/contracts/access/Ownable.sol": {
-			"keccak256": "0x78d7d9211513b60f81db3089fffbc1ce5c3d87d021d54c9c41a909000ba8bbc4",
-			"urls": [
-				"bzz-raw://6c0471235adc538bfe1054546ff5136cf463a0c139b6c38e6aafeeb4a2a00c58",
-				"dweb:/ipfs/QmdHm68MUvSaVCbJkDpxyyeMJoG6upDMjBKgt91HZHW71G"
-			]
-		},
 		"@openzeppelin/contracts/math/SafeMath.sol": {
 			"keccak256": "0x8d890f7a794b66b8b3ab54779603c254f85ee0d436dd4a17b3543c6629b726f8",
 			"urls": [
@@ -578,17 +564,31 @@
 			]
 		},
 		"localhost/contracts/BrainToken.sol": {
-			"keccak256": "0xc4849a01d50752761bd1ce02e3e9b83f890f0585a0eb84334479f8765deacde0",
+			"keccak256": "0xadd5446266902e4bd7f4c6294ea1e8558517c4ed6702a33746c36a3c698d0742",
 			"urls": [
-				"bzz-raw://e3afb06a3656012725f2b89bd9e126de860e01351f0feb38b2254af113a7f6e3",
-				"dweb:/ipfs/QmQq8agyEm6SRa3T5MUv1h7DjBJtpTPc2JkmsBFGZiT5Ub"
+				"bzz-raw://a1d1fde0ad654290667940de4911d47c45e3ce6abc4a524efbbb37231b4c35d0",
+				"dweb:/ipfs/QmSJvJshnWioZM33NGjRErz42DvBejPFpZT6PxGeoZDFgL"
+			]
+		},
+		"localhost/contracts/Context.sol": {
+			"keccak256": "0x5eb69671d05cecd8eb2797da054edd8e375cdc9880471bce5e25a283e28376e6",
+			"urls": [
+				"bzz-raw://a57463926ddacd2d1a1f78b84804e4122f2dc73e0dd1004bf86ca73f587db40d",
+				"dweb:/ipfs/QmbyQ9LXn6TF28vFT6rML7yp4EyWPWUPojkAmQRTYV3e7u"
 			]
 		},
 		"localhost/contracts/ERC20.sol": {
-			"keccak256": "0xe65bb4c7366a47537ad5081128feb2abfe6f44a8717bafef41fefc78b3ad75f0",
+			"keccak256": "0xaa52b76d582f088995eb736a60d27e8269d3b5517e528a6b1b12b5f903084d95",
 			"urls": [
-				"bzz-raw://8f5475ebfc3af1364bfbc515a97cf2a13048ac4e5087138c0f151ec442ae0519",
-				"dweb:/ipfs/QmZUStxnhvb5a1dtesmrXXacBSmjzQnTm62B1eyq7eSUGN"
+				"bzz-raw://0a34c34889b0b5545ebd3bd58bf70551f58eee44365999a4d1fe531ebbeb057b",
+				"dweb:/ipfs/QmQozDV1cUEwbjHsVDoReBeZcCfAt3ejJvdjneDUiZ5kPh"
+			]
+		},
+		"localhost/contracts/Ownable.sol": {
+			"keccak256": "0x1bb7b9c66a88aaa54589f47d241292bf88d9766e570d0ba4bf4d07daaaf9fd99",
+			"urls": [
+				"bzz-raw://44310461687026531f76aa11c73d82b086f0a37c9828295ca4c98f6e85eed655",
+				"dweb:/ipfs/QmTPo4m787hYjadBHMDPe51ixWBuCpkoUeRNbJ7xWFkvFi"
 			]
 		}
 	},

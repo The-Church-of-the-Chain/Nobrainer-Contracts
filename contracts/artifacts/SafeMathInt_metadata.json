@@ -50,17 +50,17 @@
 			]
 		},
 		"localhost/contracts/IBrainLootbox.sol": {
-			"keccak256": "0x12b68d8ba1fb3a3836eda09d63a6be2bb08e0bd30728efad80bd8c0a5328222b",
+			"keccak256": "0x75dfce1addb1fd40965c61b08d9a55d25e5685fb5695508b840f11f86b9002ba",
 			"urls": [
-				"bzz-raw://26d585a782b59013ee9bb46da4b2c18a0b2983db1d8c1803b4ff6ab494af5d64",
-				"dweb:/ipfs/QmZQoJPi1cG3ASzJdsfSGZWMKchMYFHR45fPL4MJedZPuD"
+				"bzz-raw://85b7fae7278bc2ebe67fb11a43d3e20b5b98cd8bb674da6e0632cf7243d37bbf",
+				"dweb:/ipfs/QmNuDFzZDFzxJAZV1NqDczKEbBsPYohiFqmkFXuiCdDVwk"
 			]
 		},
 		"localhost/contracts/LockedLPFarm.sol": {
-			"keccak256": "0xbe5d85976a411343bb4612da13ec3ce2202c68a3b06aa10bbdd5b76516b3c566",
+			"keccak256": "0x96a4e9faf28a07a44e35839e83ffa1c59f1f6a531677409a2c5801be4c259a07",
 			"urls": [
-				"bzz-raw://f91a82750608bdfec04dbd902abb60a5eb2974ff1b6a52e3426220c624f72fe7",
-				"dweb:/ipfs/QmSDdKmpYkaSL2Doy98eDHrdvqYerUYzaEAvbQiarSNfTJ"
+				"bzz-raw://64c66b1e9f64b3a2986bceba462225cbf03119d9eb785433227ef822a261d7f4",
+				"dweb:/ipfs/QmVw4NqgcJrLbE3D4AtY3jbBTQhDBK2q9VNgz766VCth4P"
 			]
 		},
 		"localhost/contracts/Ownable.sol": {

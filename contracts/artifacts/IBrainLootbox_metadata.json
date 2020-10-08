@@ -67,10 +67,10 @@
 	},
 	"sources": {
 		"localhost/contracts/IBrainLootbox.sol": {
-			"keccak256": "0x12b68d8ba1fb3a3836eda09d63a6be2bb08e0bd30728efad80bd8c0a5328222b",
+			"keccak256": "0x75dfce1addb1fd40965c61b08d9a55d25e5685fb5695508b840f11f86b9002ba",
 			"urls": [
-				"bzz-raw://26d585a782b59013ee9bb46da4b2c18a0b2983db1d8c1803b4ff6ab494af5d64",
-				"dweb:/ipfs/QmZQoJPi1cG3ASzJdsfSGZWMKchMYFHR45fPL4MJedZPuD"
+				"bzz-raw://85b7fae7278bc2ebe67fb11a43d3e20b5b98cd8bb674da6e0632cf7243d37bbf",
+				"dweb:/ipfs/QmNuDFzZDFzxJAZV1NqDczKEbBsPYohiFqmkFXuiCdDVwk"
 			]
 		}
 	},

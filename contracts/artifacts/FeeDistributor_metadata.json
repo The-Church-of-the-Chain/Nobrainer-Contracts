@@ -228,10 +228,10 @@
 			]
 		},
 		"localhost/contracts/FeeDistributor.sol": {
-			"keccak256": "0xf45fd05f1a731607c889cdf1455b86e50d7a39def8db561f6a95734b4b65a185",
+			"keccak256": "0x9ab61f45def13a6e884af3a01b50b483f3c7de8f730caea4282531d48200b0d9",
 			"urls": [
-				"bzz-raw://a6c89b088b2377b6ef46542d39524a8abece9fbc8111ee93c18cef832ece4c41",
-				"dweb:/ipfs/QmfDKKwRqNsZSGE4MiEHeoYfv9e9aMo5nXj1ne6VY31CfX"
+				"bzz-raw://f688c13985c56f169b7ae518171a954690a3144fe71e2a675bad770550970bea",
+				"dweb:/ipfs/QmczjtfGiR3K6qJNnB9495CNm5ATBapDhunPpXKyZDPfeS"
 			]
 		}
 	},

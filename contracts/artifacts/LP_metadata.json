@@ -94,10 +94,10 @@
 			]
 		},
 		"localhost/contracts/LockedLP.sol": {
-			"keccak256": "0xeb4390f8a5cec96a451372f2d8dbb6017c6140473eccad9ee89a0f12abc01768",
+			"keccak256": "0x4fa8131b967e1b8af50b8002df2078d874111c3ed3b62c770fb082eb780b90a1",
 			"urls": [
-				"bzz-raw://41b83e84c781516b36852a226f1c7d0765909bc2c24859fa5c50bb66284f8871",
-				"dweb:/ipfs/QmTYAsTKKBdRqUBxHdHbkFN7jzqH51KVUqVkaAFwcNyRCt"
+				"bzz-raw://1f9a9fe0b6f34d3d89ef636ab5b705247020f941c0e517df6eb2ccde25dd5ea5",
+				"dweb:/ipfs/QmQSidbMCaLC5r92d9daS1x6VHKqi6SMSfAzPhYjmrw2SB"
 			]
 		}
 	},

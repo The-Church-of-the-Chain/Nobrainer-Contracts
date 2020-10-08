@@ -1,7 +1,7 @@
 // Brain ERC1155 NFT
 // https://nobrainer.finance/
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.6.2;
+pragma solidity 0.6.2;
 
 import "./ERC1155.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";

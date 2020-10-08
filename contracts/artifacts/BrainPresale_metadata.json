@@ -201,10 +201,10 @@
 			]
 		},
 		"localhost/contracts/presale.sol": {
-			"keccak256": "0xd5d8eac3105ac42dffe8a858ee8affe4c82729005b8eac3b4b807f9a13c0cc70",
+			"keccak256": "0x9531fed6c7f09137a795f0433af3a5a400018fc24e37a604065eafa75eb6b982",
 			"urls": [
-				"bzz-raw://af5c9f74c23cb9e639ef00e0246b3dc2ad76b8c7822cd99512cc0fc7579dcf5c",
-				"dweb:/ipfs/QmaRgR4mcQioiHpTGyzxNCm2EkxmmDknabt2Gns6RDp8hM"
+				"bzz-raw://b99184e5ec1ebf83e5477a5475b8632a5b34e961d77c27b085d1368142788ee8",
+				"dweb:/ipfs/QmUsYUoLKZax9viDz14zsF7fCQxnMh4nw3yB8igkaQj6kT"
 			]
 		}
 	},
