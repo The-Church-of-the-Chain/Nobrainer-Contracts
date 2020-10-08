@@ -1,0 +1,105 @@
+{
+	"compiler": {
+		"version": "0.6.2+commit.bacdbe57"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "sender",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "recipient",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "transferFrom",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"methods": {}
+		},
+		"userdoc": {
+			"methods": {}
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"localhost/contracts/LockedLP.sol": "LP"
+		},
+		"evmVersion": "istanbul",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": true,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"@openzeppelin/contracts/GSN/Context.sol": {
+			"keccak256": "0xd9e1cdbea4cf7c51ac26f5782db0fb3d78c1b37e090547e83aef497a727a18f5",
+			"urls": [
+				"bzz-raw://5017e004334d7579774232e18f739ee9eb39438d03c49a9451a35e315c28761b",
+				"dweb:/ipfs/QmNb8Q8C6WLgtWqCE7iL5T1UN52Q6QsE7ZtVc6ppcvViXe"
+			]
+		},
+		"@openzeppelin/contracts/math/SafeMath.sol": {
+			"keccak256": "0x8d890f7a794b66b8b3ab54779603c254f85ee0d436dd4a17b3543c6629b726f8",
+			"urls": [
+				"bzz-raw://887bb68104c8f862a66939b192a85e79564bed9bbe72cda6240fd89bbea642fd",
+				"dweb:/ipfs/QmbC56SFqW7UCx26RfPFWPiEXnQTJXSBA5r4SrojRMHqeM"
+			]
+		},
+		"@openzeppelin/contracts/token/ERC20/ERC20.sol": {
+			"keccak256": "0x39d378e57df979ff239fd4a2642dbc0103ef1c5a8b8969cf51079fd1d0ea7191",
+			"urls": [
+				"bzz-raw://ff6ab477c3253a5be7afad10b893a2435e26873fd0e01efab3e3350d38d71435",
+				"dweb:/ipfs/QmSk314k5R6CLLRofgDkNoKnMfkmhMhHzhww9GPxf4WY7U"
+			]
+		},
+		"@openzeppelin/contracts/token/ERC20/IERC20.sol": {
+			"keccak256": "0x979000648732c91f60536a23950b83e11a1f47204cb280cf2b8dc0a1280258da",
+			"urls": [
+				"bzz-raw://880bda603cd4c34690385db83633dd3918de7a96d9361089d9329ca81ef4e273",
+				"dweb:/ipfs/QmRZqTMmCpNYqCcEsbMMtvF6NYKDarNnNbJseZ2LLDrevA"
+			]
+		},
+		"@openzeppelin/contracts/utils/Address.sol": {
+			"keccak256": "0xb45dc9b431fd17029e917725b523f7302f31d3501c11f9bf4f985d2b088d36d3",
+			"urls": [
+				"bzz-raw://5e276244483cce4d0765d5cd229141a3aa98761e0034736dcd7887e5235acb29",
+				"dweb:/ipfs/QmTrizLJ2MCYuaG8YPwg9umQ3XvCd3xjrwkzjcjqvSxYH4"
+			]
+		},
+		"localhost/contracts/LockedLP.sol": {
+			"keccak256": "0xeb4390f8a5cec96a451372f2d8dbb6017c6140473eccad9ee89a0f12abc01768",
+			"urls": [
+				"bzz-raw://41b83e84c781516b36852a226f1c7d0765909bc2c24859fa5c50bb66284f8871",
+				"dweb:/ipfs/QmTYAsTKKBdRqUBxHdHbkFN7jzqH51KVUqVkaAFwcNyRCt"
+			]
+		}
+	},
+	"version": 1
+}

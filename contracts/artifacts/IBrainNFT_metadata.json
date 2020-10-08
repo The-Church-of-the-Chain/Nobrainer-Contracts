@@ -1,0 +1,104 @@
+{
+	"compiler": {
+		"version": "0.6.2+commit.bacdbe57"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "maxSupply",
+						"type": "uint256"
+					}
+				],
+				"name": "addCard",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "to",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "mint",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"methods": {}
+		},
+		"userdoc": {
+			"methods": {}
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"localhost/contracts/BrainLootbox.sol": "IBrainNFT"
+		},
+		"evmVersion": "istanbul",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": true,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"@openzeppelin/contracts/GSN/Context.sol": {
+			"keccak256": "0xd9e1cdbea4cf7c51ac26f5782db0fb3d78c1b37e090547e83aef497a727a18f5",
+			"urls": [
+				"bzz-raw://5017e004334d7579774232e18f739ee9eb39438d03c49a9451a35e315c28761b",
+				"dweb:/ipfs/QmNb8Q8C6WLgtWqCE7iL5T1UN52Q6QsE7ZtVc6ppcvViXe"
+			]
+		},
+		"@openzeppelin/contracts/access/Ownable.sol": {
+			"keccak256": "0x78d7d9211513b60f81db3089fffbc1ce5c3d87d021d54c9c41a909000ba8bbc4",
+			"urls": [
+				"bzz-raw://6c0471235adc538bfe1054546ff5136cf463a0c139b6c38e6aafeeb4a2a00c58",
+				"dweb:/ipfs/QmdHm68MUvSaVCbJkDpxyyeMJoG6upDMjBKgt91HZHW71G"
+			]
+		},
+		"@openzeppelin/contracts/math/SafeMath.sol": {
+			"keccak256": "0x8d890f7a794b66b8b3ab54779603c254f85ee0d436dd4a17b3543c6629b726f8",
+			"urls": [
+				"bzz-raw://887bb68104c8f862a66939b192a85e79564bed9bbe72cda6240fd89bbea642fd",
+				"dweb:/ipfs/QmbC56SFqW7UCx26RfPFWPiEXnQTJXSBA5r4SrojRMHqeM"
+			]
+		},
+		"localhost/contracts/BrainLootbox.sol": {
+			"keccak256": "0xbb698d6cc16ef464271651cc1d18d32715e362ce026dbb7072138117b6b4344a",
+			"urls": [
+				"bzz-raw://721220bfa235c959241fe4c7da67cb71b5ebe257e432490ec2378ea065f2ef0e",
+				"dweb:/ipfs/QmXBANMJrzA5or5ifh78RC9UPFLPSSxFbxcmF6UzVZpXM6"
+			]
+		}
+	},
+	"version": 1
+}

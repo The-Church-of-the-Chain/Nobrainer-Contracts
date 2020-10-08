@@ -1,0 +1,96 @@
+{
+	"compiler": {
+		"version": "0.6.2+commit.bacdbe57"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"name": "pendingFarmAmount",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "processTransfer",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"methods": {}
+		},
+		"userdoc": {
+			"methods": {}
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"localhost/contracts/LockedLPFarm.sol": "IFeeDistributor"
+		},
+		"evmVersion": "istanbul",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": true,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"@openzeppelin/contracts/GSN/Context.sol": {
+			"keccak256": "0xd9e1cdbea4cf7c51ac26f5782db0fb3d78c1b37e090547e83aef497a727a18f5",
+			"urls": [
+				"bzz-raw://5017e004334d7579774232e18f739ee9eb39438d03c49a9451a35e315c28761b",
+				"dweb:/ipfs/QmNb8Q8C6WLgtWqCE7iL5T1UN52Q6QsE7ZtVc6ppcvViXe"
+			]
+		},
+		"@openzeppelin/contracts/access/Ownable.sol": {
+			"keccak256": "0x78d7d9211513b60f81db3089fffbc1ce5c3d87d021d54c9c41a909000ba8bbc4",
+			"urls": [
+				"bzz-raw://6c0471235adc538bfe1054546ff5136cf463a0c139b6c38e6aafeeb4a2a00c58",
+				"dweb:/ipfs/QmdHm68MUvSaVCbJkDpxyyeMJoG6upDMjBKgt91HZHW71G"
+			]
+		},
+		"@openzeppelin/contracts/math/SafeMath.sol": {
+			"keccak256": "0x8d890f7a794b66b8b3ab54779603c254f85ee0d436dd4a17b3543c6629b726f8",
+			"urls": [
+				"bzz-raw://887bb68104c8f862a66939b192a85e79564bed9bbe72cda6240fd89bbea642fd",
+				"dweb:/ipfs/QmbC56SFqW7UCx26RfPFWPiEXnQTJXSBA5r4SrojRMHqeM"
+			]
+		},
+		"@openzeppelin/contracts/token/ERC20/IERC20.sol": {
+			"keccak256": "0x979000648732c91f60536a23950b83e11a1f47204cb280cf2b8dc0a1280258da",
+			"urls": [
+				"bzz-raw://880bda603cd4c34690385db83633dd3918de7a96d9361089d9329ca81ef4e273",
+				"dweb:/ipfs/QmRZqTMmCpNYqCcEsbMMtvF6NYKDarNnNbJseZ2LLDrevA"
+			]
+		},
+		"localhost/contracts/IBrainLootbox.sol": {
+			"keccak256": "0x12b68d8ba1fb3a3836eda09d63a6be2bb08e0bd30728efad80bd8c0a5328222b",
+			"urls": [
+				"bzz-raw://26d585a782b59013ee9bb46da4b2c18a0b2983db1d8c1803b4ff6ab494af5d64",
+				"dweb:/ipfs/QmZQoJPi1cG3ASzJdsfSGZWMKchMYFHR45fPL4MJedZPuD"
+			]
+		},
+		"localhost/contracts/LockedLPFarm.sol": {
+			"keccak256": "0x18ce8036dec8eaa2fbd136ecdb935fb96c38fff08d729e1575734c5f2b222e68",
+			"urls": [
+				"bzz-raw://6941bdbeba87949b6db1dd4b29822f61a3378a0790bae7dcc5350f7f8c46c178",
+				"dweb:/ipfs/QmWKuww2CTPowGuKZz8duhEZWDjAwcYeeDMDun851Wq3Nb"
+			]
+		}
+	},
+	"version": 1
+}

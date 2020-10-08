@@ -1,0 +1,78 @@
+{
+	"compiler": {
+		"version": "0.6.2+commit.bacdbe57"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					}
+				],
+				"name": "getPrice",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "to",
+						"type": "address"
+					}
+				],
+				"name": "redeem",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"methods": {}
+		},
+		"userdoc": {
+			"methods": {}
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"localhost/contracts/IBrainLootbox.sol": "IBrainLootbox"
+		},
+		"evmVersion": "istanbul",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": true,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"localhost/contracts/IBrainLootbox.sol": {
+			"keccak256": "0x12b68d8ba1fb3a3836eda09d63a6be2bb08e0bd30728efad80bd8c0a5328222b",
+			"urls": [
+				"bzz-raw://26d585a782b59013ee9bb46da4b2c18a0b2983db1d8c1803b4ff6ab494af5d64",
+				"dweb:/ipfs/QmZQoJPi1cG3ASzJdsfSGZWMKchMYFHR45fPL4MJedZPuD"
+			]
+		}
+	},
+	"version": 1
+}

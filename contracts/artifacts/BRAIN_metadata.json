@@ -1,0 +1,105 @@
+{
+	"compiler": {
+		"version": "0.6.2+commit.bacdbe57"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "account",
+						"type": "address"
+					}
+				],
+				"name": "balanceOf",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "recipient",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "transfer",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"methods": {}
+		},
+		"userdoc": {
+			"methods": {}
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"localhost/contracts/presale.sol": "BRAIN"
+		},
+		"evmVersion": "istanbul",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": true,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"@openzeppelin/contracts/GSN/Context.sol": {
+			"keccak256": "0xd9e1cdbea4cf7c51ac26f5782db0fb3d78c1b37e090547e83aef497a727a18f5",
+			"urls": [
+				"bzz-raw://5017e004334d7579774232e18f739ee9eb39438d03c49a9451a35e315c28761b",
+				"dweb:/ipfs/QmNb8Q8C6WLgtWqCE7iL5T1UN52Q6QsE7ZtVc6ppcvViXe"
+			]
+		},
+		"@openzeppelin/contracts/access/Ownable.sol": {
+			"keccak256": "0x78d7d9211513b60f81db3089fffbc1ce5c3d87d021d54c9c41a909000ba8bbc4",
+			"urls": [
+				"bzz-raw://6c0471235adc538bfe1054546ff5136cf463a0c139b6c38e6aafeeb4a2a00c58",
+				"dweb:/ipfs/QmdHm68MUvSaVCbJkDpxyyeMJoG6upDMjBKgt91HZHW71G"
+			]
+		},
+		"@openzeppelin/contracts/math/SafeMath.sol": {
+			"keccak256": "0x8d890f7a794b66b8b3ab54779603c254f85ee0d436dd4a17b3543c6629b726f8",
+			"urls": [
+				"bzz-raw://887bb68104c8f862a66939b192a85e79564bed9bbe72cda6240fd89bbea642fd",
+				"dweb:/ipfs/QmbC56SFqW7UCx26RfPFWPiEXnQTJXSBA5r4SrojRMHqeM"
+			]
+		},
+		"localhost/contracts/presale.sol": {
+			"keccak256": "0xd5d8eac3105ac42dffe8a858ee8affe4c82729005b8eac3b4b807f9a13c0cc70",
+			"urls": [
+				"bzz-raw://af5c9f74c23cb9e639ef00e0246b3dc2ad76b8c7822cd99512cc0fc7579dcf5c",
+				"dweb:/ipfs/QmaRgR4mcQioiHpTGyzxNCm2EkxmmDknabt2Gns6RDp8hM"
+			]
+		}
+	},
+	"version": 1
+}
