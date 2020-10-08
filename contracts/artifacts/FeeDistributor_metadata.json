@@ -220,11 +220,18 @@
 				"dweb:/ipfs/QmbC56SFqW7UCx26RfPFWPiEXnQTJXSBA5r4SrojRMHqeM"
 			]
 		},
-		"localhost/contracts/FeeDistributor.sol": {
-			"keccak256": "0x858d285f726d1a8a1fa6ecabe5be10e1440f4891f3fd5d0eeb64fc719ecd4333",
+		"@openzeppelin/contracts/token/ERC20/IERC20.sol": {
+			"keccak256": "0x979000648732c91f60536a23950b83e11a1f47204cb280cf2b8dc0a1280258da",
 			"urls": [
-				"bzz-raw://e90260b1244a165c03159253ff98ae7c5f393ed7406dfe34786daa7409760245",
-				"dweb:/ipfs/Qmc7zG52sF6cEEibGrz4EV58hHPS9MR6F9GnqRMdwhvzCd"
+				"bzz-raw://880bda603cd4c34690385db83633dd3918de7a96d9361089d9329ca81ef4e273",
+				"dweb:/ipfs/QmRZqTMmCpNYqCcEsbMMtvF6NYKDarNnNbJseZ2LLDrevA"
+			]
+		},
+		"localhost/contracts/FeeDistributor.sol": {
+			"keccak256": "0xf45fd05f1a731607c889cdf1455b86e50d7a39def8db561f6a95734b4b65a185",
+			"urls": [
+				"bzz-raw://a6c89b088b2377b6ef46542d39524a8abece9fbc8111ee93c18cef832ece4c41",
+				"dweb:/ipfs/QmfDKKwRqNsZSGE4MiEHeoYfv9e9aMo5nXj1ne6VY31CfX"
 			]
 		}
 	},

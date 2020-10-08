@@ -301,20 +301,6 @@
 		"remappings": []
 	},
 	"sources": {
-		"@openzeppelin/contracts/GSN/Context.sol": {
-			"keccak256": "0xd9e1cdbea4cf7c51ac26f5782db0fb3d78c1b37e090547e83aef497a727a18f5",
-			"urls": [
-				"bzz-raw://5017e004334d7579774232e18f739ee9eb39438d03c49a9451a35e315c28761b",
-				"dweb:/ipfs/QmNb8Q8C6WLgtWqCE7iL5T1UN52Q6QsE7ZtVc6ppcvViXe"
-			]
-		},
-		"@openzeppelin/contracts/access/Ownable.sol": {
-			"keccak256": "0x78d7d9211513b60f81db3089fffbc1ce5c3d87d021d54c9c41a909000ba8bbc4",
-			"urls": [
-				"bzz-raw://6c0471235adc538bfe1054546ff5136cf463a0c139b6c38e6aafeeb4a2a00c58",
-				"dweb:/ipfs/QmdHm68MUvSaVCbJkDpxyyeMJoG6upDMjBKgt91HZHW71G"
-			]
-		},
 		"@openzeppelin/contracts/math/SafeMath.sol": {
 			"keccak256": "0x8d890f7a794b66b8b3ab54779603c254f85ee0d436dd4a17b3543c6629b726f8",
 			"urls": [
@@ -330,10 +316,17 @@
 			]
 		},
 		"localhost/contracts/BrainFarm.sol": {
-			"keccak256": "0x592b9ddd4e6b85881b6535b1a79eed4008eec70934dad5aa495b04f27c805ac8",
+			"keccak256": "0xbff4f2e20260481be930ed589c964b4cb1cc01f9ecc2af8ce40b571e72f5f938",
 			"urls": [
-				"bzz-raw://31d3d4be7bee36ebb37264ed6bdee0d0804eee3c74c6a175c466a4f6ef9d5256",
-				"dweb:/ipfs/QmaF27Wf9NgdLDFWBJrYTNZtcioqXcKW4uREp1RCC7oWwv"
+				"bzz-raw://5a50d847152003fefa295dd8e1c80cdc4d3d6d84d7417b74c8c396fab1be3191",
+				"dweb:/ipfs/QmaRLRj6TKiaize7JHbmqUSbxk6pXnqfVmPVay62QpcVLj"
+			]
+		},
+		"localhost/contracts/Context.sol": {
+			"keccak256": "0x5eb69671d05cecd8eb2797da054edd8e375cdc9880471bce5e25a283e28376e6",
+			"urls": [
+				"bzz-raw://a57463926ddacd2d1a1f78b84804e4122f2dc73e0dd1004bf86ca73f587db40d",
+				"dweb:/ipfs/QmbyQ9LXn6TF28vFT6rML7yp4EyWPWUPojkAmQRTYV3e7u"
 			]
 		},
 		"localhost/contracts/IBrainLootbox.sol": {
@@ -341,6 +334,13 @@
 			"urls": [
 				"bzz-raw://26d585a782b59013ee9bb46da4b2c18a0b2983db1d8c1803b4ff6ab494af5d64",
 				"dweb:/ipfs/QmZQoJPi1cG3ASzJdsfSGZWMKchMYFHR45fPL4MJedZPuD"
+			]
+		},
+		"localhost/contracts/Ownable.sol": {
+			"keccak256": "0x1bb7b9c66a88aaa54589f47d241292bf88d9766e570d0ba4bf4d07daaaf9fd99",
+			"urls": [
+				"bzz-raw://44310461687026531f76aa11c73d82b086f0a37c9828295ca4c98f6e85eed655",
+				"dweb:/ipfs/QmTPo4m787hYjadBHMDPe51ixWBuCpkoUeRNbJ7xWFkvFi"
 			]
 		}
 	},

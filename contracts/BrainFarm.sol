@@ -1,7 +1,7 @@
 pragma solidity 0.6.2;
 
 import "@openzeppelin/contracts/math/SafeMath.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
+import "./Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "./IBrainLootbox.sol";
 
@@ -43,6 +43,13 @@ contract BrainFarm is Ownable {
     return points[account].add(blockTime.sub(lastUpdateTime[account]).mul(1e18).div(86400).mul(balanceOf(account).div(1e18)));
   }
 
+  /*
+  An external message call to an address specified by the caller is executed.
+  Note that the callee account might contain arbitrary code and could re-enter any function within this contract. 
+  Reentering the contract in an intermediate state may lead to unexpected behaviour. 
+  Make sure that no state modifications are executed after this call and/or reentrancy guards are in place.
+  https://swcregistry.io/docs/SWC-107
+  */
   function stake(uint256 amount) public updateReward(msg.sender) {
     require(amount.add(balanceOf(msg.sender)) <= 5000000000000000000, "Cannot stake more than 5 BRAIN");
     IERC20(BrainAddress).transferFrom(msg.sender, address(this), amount);

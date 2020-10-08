@@ -1,9 +1,9 @@
 // Brain ERC20 Token
 // https://nobrainer.finance/
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.6.2;
+pragma solidity 0.6.2;
 
-import "@openzeppelin/contracts/access/Ownable.sol";
+import "./Ownable.sol";
 import "./ERC20.sol";
 
 contract BrainToken is ERC20, Ownable {
