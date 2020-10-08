@@ -102,16 +102,11 @@ contract LockedLPFarm is Ownable {
 
   function earned(address account) public view returns (uint256) {
     uint256 blockTime = block.timestamp;
-    return
-      points[account].add(
-        blockTime.sub(lastUpdateTime[account]).mul(1e18).div(86400).mul(
-          (balanceOf(account).mul(25000)).div(1e18)
-        )
-      );
-	}
+    return points[account].add(blockTime.sub(lastUpdateTime[account]).mul(1e18).div(86400).mul(balanceOf(account).div(1e18)));
+  }
 
 	function stake(uint256 amount) public updateReward(msg.sender) {
-	  require(amount.add(balanceOf(msg.sender)) <= 200000000000000, "Cannot stake more than 0.0002 Locked LP");
+	  require(amount.add(balanceOf(msg.sender)) <= 5000000000000000000, "Cannot stake more than 5 Locked LP");
 	  distributeDividends();
 	  IERC20(LPAddress).transferFrom(msg.sender, address(this), amount);
 	  totalStaked = totalStaked.add(amount);

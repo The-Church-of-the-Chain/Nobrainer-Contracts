@@ -3,12 +3,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.6.2;
 
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/math/SafeMath.sol";
-
-interface BRAIN {
-  function balanceOf(address account) external view returns (uint256);
-  function transfer(address recipient, uint256 amount) external returns (bool);
-}
 
 contract FeeDistributor {
   using SafeMath for uint256;
@@ -38,7 +34,7 @@ contract FeeDistributor {
   uint256 public farmRatio = 7500;
 
   function pendingFarmAmount() public view returns (uint256) {
-    uint256 balance = BRAIN(brainAddress).balanceOf(address(this));
+    uint256 balance = IERC20(brainAddress).balanceOf(address(this));
     if (balance > 0) {
       uint256 fraction = balance.div(10000);
       if (fraction > 0) {
@@ -52,15 +48,15 @@ contract FeeDistributor {
   }
 
   function processTransfer() public {
-    uint256 balance = BRAIN(brainAddress).balanceOf(address(this));
+    uint256 balance = IERC20(brainAddress).balanceOf(address(this));
     if (balance > 0) {
       uint256 fraction = balance.div(10000);
       if (fraction > 0) {
-        BRAIN(brainAddress).transfer(burnAddress, fraction.mul(burnRatio));
-        BRAIN(brainAddress).transfer(artistFundAddress, fraction.mul(artistFundRatio));
-        BRAIN(brainAddress).transfer(devAddress1, fraction.mul(devRatio1));
-        BRAIN(brainAddress).transfer(devAddress2, fraction.mul(devRatio2));
-        BRAIN(brainAddress).transfer(farmAddress, fraction.mul(farmRatio));
+        IERC20(brainAddress).transfer(burnAddress, fraction.mul(burnRatio));
+        IERC20(brainAddress).transfer(artistFundAddress, fraction.mul(artistFundRatio));
+        IERC20(brainAddress).transfer(devAddress1, fraction.mul(devRatio1));
+        IERC20(brainAddress).transfer(devAddress2, fraction.mul(devRatio2));
+        IERC20(brainAddress).transfer(farmAddress, fraction.mul(farmRatio));
       }
     }
   }

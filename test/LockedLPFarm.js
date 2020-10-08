@@ -67,11 +67,11 @@ contract("LockedLPFarm", async (accounts) => {
       }
     );
     await truffleAssert.reverts(
-      farm.stake(new web3.utils.BN("200000000000001"), {
+      farm.stake(new web3.utils.BN("5000000000000000001"), {
         from: accounts[0],
       })
     );
-    await farm.stake(new web3.utils.BN("200000000000000"), {
+    await farm.stake(new web3.utils.BN("5000000000000000000"), {
       from: accounts[0],
     });
     const [tokenBalanceB, farmBalanceB] = await Promise.all([
@@ -151,9 +151,13 @@ contract("LockedLPFarm", async (accounts) => {
       new web3.utils.BN("50000000000000"),
       { from: accounts[0] }
     );
-    await token.transfer(accounts[1], new web3.utils.BN("50000000000000"), {
-      from: accounts[0],
-    });
+    await token.transfer(
+      accounts[1],
+      new web3.utils.BN("5000000000000000000"),
+      {
+        from: accounts[0],
+      }
+    );
     await token.approve(
       farm.address,
       new web3.utils.BN("10000000000000000000"),
@@ -162,14 +166,17 @@ contract("LockedLPFarm", async (accounts) => {
       }
     );
 
-    assert.equal(200000000000000, (await farm.totalStaked.call()).toNumber());
+    assert.equal(
+      "5000000000000000000",
+      (await farm.totalStaked.call()).toString()
+    );
     assert.equal(
       0,
       (await farm.magnifiedDividendCorrections.call(accounts[0])).toNumber()
     );
 
     const pendingToFarm = await distrubutor.pendingFarmAmount.call();
-    await farm.stake(new web3.utils.BN("50000000000000"), {
+    await farm.stake(new web3.utils.BN("40000000000000000"), {
       from: accounts[1],
     });
     const pendingToFarmAfter = await distrubutor.pendingFarmAmount.call();
@@ -178,7 +185,7 @@ contract("LockedLPFarm", async (accounts) => {
 
     const dividend0A = await farm.withdrawableDividendOf.call(accounts[0]);
     const dividend1A = await farm.withdrawableDividendOf.call(accounts[1]);
-    assert.equal("37500000000000", dividend0A.toString());
+    assert.equal("37499999999999", dividend0A.toString());
     assert.equal(0, dividend1A.toNumber());
 
     const pendingA = await farm.PendingWithdrawableDividendOf(accounts[0]);
@@ -198,13 +205,13 @@ contract("LockedLPFarm", async (accounts) => {
     ).toString();
     const pendingC = await farm.PendingWithdrawableDividendOf(accounts[0]);
 
-    assert.equal(pendingA.toString(), "37500000000000");
-    assert.equal(pendingB.toString(), "67499999999999");
+    assert.equal(pendingA.toString(), "37499999999999");
+    assert.equal(pendingB.toString(), "74702380952380");
     assert.equal(pendingC.toString(), "0");
 
     assert.equal(
       new web3.utils.BN(balanceBeforeWithdraw)
-        .add(new web3.utils.BN("67499999999999"))
+        .add(new web3.utils.BN("74702380952380"))
         .toString(),
       balanceAfterWithdraw
     );
@@ -215,7 +222,7 @@ contract("LockedLPFarm", async (accounts) => {
       dividend1B.toString()
     );
     assert.equal(0, dividend0B.toString());
-    assert.equal("7499999999999", dividend1B.toString());
+    assert.equal("297619047619", dividend1B.toString());
   });
 
   it("Can withdraw $LockedLP", async () => {
