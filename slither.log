@@ -1,0 +1,528 @@
+slither .
+____________________________________
+'npx truffle compile --all' running (use --truffle-version truffle@x.x.x to use specific version)
+
+Compiling your contracts...
+===========================
+> Compiling ./contracts/BrainFarm.sol
+> Compiling ./contracts/BrainLootbox.sol
+> Compiling ./contracts/BrainNFT.sol
+> Compiling ./contracts/BrainToken.sol
+> Compiling ./contracts/ERC1155.sol
+> Compiling ./contracts/ERC20.sol
+> Compiling ./contracts/FeeDistributor.sol
+> Compiling ./contracts/IBrainLootbox.sol
+> Compiling ./contracts/LockedLP.sol
+> Compiling ./contracts/LockedLPFarm.sol
+> Compiling ./contracts/Migrations.sol
+> Compiling ./contracts/Strings.sol
+> Compiling ./contracts/presale.sol
+> Compiling @openzeppelin/contracts/GSN/Context.sol
+> Compiling @openzeppelin/contracts/access/AccessControl.sol
+> Compiling @openzeppelin/contracts/access/Ownable.sol
+> Compiling @openzeppelin/contracts/introspection/ERC165.sol
+> Compiling @openzeppelin/contracts/introspection/IERC165.sol
+> Compiling @openzeppelin/contracts/math/SafeMath.sol
+> Compiling @openzeppelin/contracts/token/ERC1155/IERC1155.sol
+> Compiling @openzeppelin/contracts/token/ERC1155/IERC1155MetadataURI.sol
+> Compiling @openzeppelin/contracts/token/ERC1155/IERC1155Receiver.sol
+> Compiling @openzeppelin/contracts/token/ERC20/ERC20.sol
+> Compiling @openzeppelin/contracts/token/ERC20/IERC20.sol
+> Compiling @openzeppelin/contracts/utils/Address.sol
+> Compiling @openzeppelin/contracts/utils/EnumerableSet.sol
+> Artifacts written to /home/jimmy/DecentralisedTech/projects/work/NoBrainer.Finance/Contracts/build/contracts
+> Compiled successfully using:
+   - solc: 0.6.2+commit.bacdbe57.Emscripten.clang
+
+
+
+> Duplicate contract names found for ERC20.
+> This can cause errors and unknown behavior. Please rename one of your contracts.
+
+INFO:Detectors:
+BrainPresale.withdraw(address) (presale.sol#28-35) sends eth to arbitrary user
+	Dangerous calls:
+	- to.transfer(address(this).balance) (presale.sol#33)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#functions-that-send-ether-to-arbitrary-destinations
+INFO:Detectors:
+LockedLPFarm.earned(address) (LockedLPFarm.sol#103-106) performs a multiplication on the result of a division:
+	-points[account].add(blockTime.sub(lastUpdateTime[account]).mul(1e18).div(86400).mul(balanceOf(account).div(1e18))) (LockedLPFarm.sol#105)
+BrainFarm.earned(address) (BrainFarm.sol#41-44) performs a multiplication on the result of a division:
+	-points[account].add(blockTime.sub(lastUpdateTime[account]).mul(1e18).div(86400).mul(balanceOf(account).div(1e18))) (BrainFarm.sol#43)
+FeeDistributor.pendingFarmAmount() (FeeDistributor.sol#36-48) performs a multiplication on the result of a division:
+	-fraction = balance.div(10000) (FeeDistributor.sol#39)
+	-fraction.mul(farmRatio) (FeeDistributor.sol#41)
+FeeDistributor.processTransfer() (FeeDistributor.sol#50-62) performs a multiplication on the result of a division:
+	-fraction = balance.div(10000) (FeeDistributor.sol#53)
+	-IERC20(brainAddress).transfer(burnAddress,fraction.mul(burnRatio)) (FeeDistributor.sol#55)
+FeeDistributor.processTransfer() (FeeDistributor.sol#50-62) performs a multiplication on the result of a division:
+	-fraction = balance.div(10000) (FeeDistributor.sol#53)
+	-IERC20(brainAddress).transfer(artistFundAddress,fraction.mul(artistFundRatio)) (FeeDistributor.sol#56)
+FeeDistributor.processTransfer() (FeeDistributor.sol#50-62) performs a multiplication on the result of a division:
+	-fraction = balance.div(10000) (FeeDistributor.sol#53)
+	-IERC20(brainAddress).transfer(devAddress1,fraction.mul(devRatio1)) (FeeDistributor.sol#57)
+FeeDistributor.processTransfer() (FeeDistributor.sol#50-62) performs a multiplication on the result of a division:
+	-fraction = balance.div(10000) (FeeDistributor.sol#53)
+	-IERC20(brainAddress).transfer(devAddress2,fraction.mul(devRatio2)) (FeeDistributor.sol#58)
+FeeDistributor.processTransfer() (FeeDistributor.sol#50-62) performs a multiplication on the result of a division:
+	-fraction = balance.div(10000) (FeeDistributor.sol#53)
+	-IERC20(brainAddress).transfer(farmAddress,fraction.mul(farmRatio)) (FeeDistributor.sol#59)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#divide-before-multiply
+INFO:Detectors:
+Reentrancy in LockedLPFarm.redeem(uint256) (LockedLPFarm.sol#133-139):
+	External calls:
+	- IBrainLootbox(LootboxAddress).redeem(_lootbox,msg.sender) (LockedLPFarm.sol#137)
+	State variables written after the call(s):
+	- points[msg.sender] = points[msg.sender].sub(price) (LockedLPFarm.sol#138)
+Reentrancy in BrainLootbox.redeem(uint256,address) (BrainLootbox.sol#65-84):
+	External calls:
+	- IBrainNFT(NFTAddress).mint(to,lootbox[id].cardIds[i],1) (BrainLootbox.sol#77)
+	State variables written after the call(s):
+	- lootbox[id].cardAmounts[i] = lootbox[id].cardAmounts[i].sub(1) (BrainLootbox.sol#78)
+	- lootbox[id].totalCards = lootbox[id].totalCards.sub(1) (BrainLootbox.sol#79)
+Reentrancy in BrainFarm.redeem(uint256) (BrainFarm.sol#65-71):
+	External calls:
+	- IBrainLootbox(LootboxAddress).redeem(_lootbox,msg.sender) (BrainFarm.sol#69)
+	State variables written after the call(s):
+	- points[msg.sender] = points[msg.sender].sub(price) (BrainFarm.sol#70)
+Reentrancy in LockedLPFarm.stake(uint256) (LockedLPFarm.sol#108-116):
+	External calls:
+	- distributeDividends() (LockedLPFarm.sol#110)
+		- IFeeDistributor(DistributorAddress).processTransfer() (LockedLPFarm.sol#155)
+	- IERC20(LPAddress).transferFrom(msg.sender,address(this),amount) (LockedLPFarm.sol#111)
+	State variables written after the call(s):
+	- lpBalance[msg.sender] = lpBalance[msg.sender].add(amount) (LockedLPFarm.sol#114)
+	- totalStaked = totalStaked.add(amount) (LockedLPFarm.sol#112)
+Reentrancy in BrainFarm.stake(uint256) (BrainFarm.sol#46-51):
+	External calls:
+	- IERC20(BrainAddress).transferFrom(msg.sender,address(this),amount) (BrainFarm.sol#48)
+	State variables written after the call(s):
+	- brainBalance[msg.sender] = brainBalance[msg.sender].add(amount) (BrainFarm.sol#49)
+Reentrancy in LockedLPFarm.withdraw(uint256) (LockedLPFarm.sol#118-127):
+	External calls:
+	- distributeDividends() (LockedLPFarm.sol#121)
+		- IFeeDistributor(DistributorAddress).processTransfer() (LockedLPFarm.sol#155)
+	- IERC20(LPAddress).transfer(msg.sender,amount) (LockedLPFarm.sol#122)
+	State variables written after the call(s):
+	- lpBalance[msg.sender] = lpBalance[msg.sender].sub(amount) (LockedLPFarm.sol#125)
+	- totalStaked = totalStaked.sub(amount) (LockedLPFarm.sol#123)
+Reentrancy in BrainFarm.withdraw(uint256) (BrainFarm.sol#53-59):
+	External calls:
+	- IERC20(BrainAddress).transfer(msg.sender,amount) (BrainFarm.sol#56)
+	State variables written after the call(s):
+	- brainBalance[msg.sender] = brainBalance[msg.sender].sub(amount) (BrainFarm.sol#57)
+Reentrancy in LockedLPFarm.withdrawDividend() (LockedLPFarm.sol#166-175):
+	External calls:
+	- distributeDividends() (LockedLPFarm.sol#167)
+		- IFeeDistributor(DistributorAddress).processTransfer() (LockedLPFarm.sol#155)
+	- IERC20(BrainAddress).transfer(msg.sender,_withdrawableDividend) (LockedLPFarm.sol#172)
+	State variables written after the call(s):
+	- lastBrainBalance = lastBrainBalance.sub(_withdrawableDividend) (LockedLPFarm.sol#173)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#reentrancy-vulnerabilities-1
+INFO:Detectors:
+ERC1155._doSafeBatchTransferAcceptanceCheck(address,address,address,uint256[],uint256[],bytes).response (ERC1155.sol#406) is a local variable never initialized
+ERC1155._doSafeTransferAcceptanceCheck(address,address,address,uint256,uint256,bytes).response (ERC1155.sol#383) is a local variable never initialized
+ERC1155._doSafeBatchTransferAcceptanceCheck(address,address,address,uint256[],uint256[],bytes).reason (ERC1155.sol#410) is a local variable never initialized
+ERC1155._doSafeTransferAcceptanceCheck(address,address,address,uint256,uint256,bytes).reason (ERC1155.sol#387) is a local variable never initialized
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#uninitialized-local-variables
+INFO:Detectors:
+LockedLPFarm.stake(uint256) (LockedLPFarm.sol#108-116) ignores return value by IERC20(LPAddress).transferFrom(msg.sender,address(this),amount) (LockedLPFarm.sol#111)
+LockedLPFarm.withdraw(uint256) (LockedLPFarm.sol#118-127) ignores return value by IERC20(LPAddress).transfer(msg.sender,amount) (LockedLPFarm.sol#122)
+LockedLPFarm.withdrawDividend() (LockedLPFarm.sol#166-175) ignores return value by IERC20(BrainAddress).transfer(msg.sender,_withdrawableDividend) (LockedLPFarm.sol#172)
+ERC1155._doSafeTransferAcceptanceCheck(address,address,address,uint256,uint256,bytes) (ERC1155.sol#372-393) ignores return value by IERC1155Receiver(to).onERC1155Received(operator,from,id,amount,data) (ERC1155.sol#383-391)
+ERC1155._doSafeBatchTransferAcceptanceCheck(address,address,address,uint256[],uint256[],bytes) (ERC1155.sol#395-416) ignores return value by IERC1155Receiver(to).onERC1155BatchReceived(operator,from,ids,amounts,data) (ERC1155.sol#406-414)
+LockedLP.lockLP(uint256) (LockedLP.sol#19-22) ignores return value by LP(UniswapPair).transferFrom(msg.sender,address(this),_amount) (LockedLP.sol#20)
+BrainFarm.stake(uint256) (BrainFarm.sol#46-51) ignores return value by IERC20(BrainAddress).transferFrom(msg.sender,address(this),amount) (BrainFarm.sol#48)
+BrainFarm.withdraw(uint256) (BrainFarm.sol#53-59) ignores return value by IERC20(BrainAddress).transfer(msg.sender,amount) (BrainFarm.sol#56)
+BrainPresale.withdraw(address) (presale.sol#28-35) ignores return value by BRAIN(tokenAddress).transfer(address(to),presaleStock()) (presale.sol#30)
+BrainPresale.buy() (presale.sol#41-45) ignores return value by BRAIN(tokenAddress).transfer(msg.sender,receiveAmount) (presale.sol#44)
+FeeDistributor.processTransfer() (FeeDistributor.sol#50-62) ignores return value by IERC20(brainAddress).transfer(burnAddress,fraction.mul(burnRatio)) (FeeDistributor.sol#55)
+FeeDistributor.processTransfer() (FeeDistributor.sol#50-62) ignores return value by IERC20(brainAddress).transfer(artistFundAddress,fraction.mul(artistFundRatio)) (FeeDistributor.sol#56)
+FeeDistributor.processTransfer() (FeeDistributor.sol#50-62) ignores return value by IERC20(brainAddress).transfer(devAddress1,fraction.mul(devRatio1)) (FeeDistributor.sol#57)
+FeeDistributor.processTransfer() (FeeDistributor.sol#50-62) ignores return value by IERC20(brainAddress).transfer(devAddress2,fraction.mul(devRatio2)) (FeeDistributor.sol#58)
+FeeDistributor.processTransfer() (FeeDistributor.sol#50-62) ignores return value by IERC20(brainAddress).transfer(farmAddress,fraction.mul(farmRatio)) (FeeDistributor.sol#59)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#unused-return
+INFO:Detectors:
+LockedLPFarm.dividendOf(address)._owner (LockedLPFarm.sol#177) shadows:
+	- Ownable._owner (@openzeppelin/contracts/access/Ownable.sol#19) (state variable)
+LockedLPFarm.PendingWithdrawableDividendOf(address)._owner (LockedLPFarm.sol#181) shadows:
+	- Ownable._owner (@openzeppelin/contracts/access/Ownable.sol#19) (state variable)
+LockedLPFarm.withdrawableDividendOf(address)._owner (LockedLPFarm.sol#192) shadows:
+	- Ownable._owner (@openzeppelin/contracts/access/Ownable.sol#19) (state variable)
+LockedLPFarm.withdrawnDividendOf(address)._owner (LockedLPFarm.sol#196) shadows:
+	- Ownable._owner (@openzeppelin/contracts/access/Ownable.sol#19) (state variable)
+LockedLPFarm.accumulativeDividendOf(address)._owner (LockedLPFarm.sol#200) shadows:
+	- Ownable._owner (@openzeppelin/contracts/access/Ownable.sol#19) (state variable)
+ERC1155.constructor(string).uri (ERC1155.sol#57) shadows:
+	- ERC1155.uri(uint256) (ERC1155.sol#78-80) (function)
+	- IERC1155MetadataURI.uri(uint256) (@openzeppelin/contracts/token/ERC1155/IERC1155MetadataURI.sol#20) (function)
+ERC20.constructor(string,string).name (@openzeppelin/contracts/token/ERC20/ERC20.sol#57) shadows:
+	- ERC20.name() (@openzeppelin/contracts/token/ERC20/ERC20.sol#66-68) (function)
+ERC20.constructor(string,string).symbol (@openzeppelin/contracts/token/ERC20/ERC20.sol#57) shadows:
+	- ERC20.symbol() (@openzeppelin/contracts/token/ERC20/ERC20.sol#74-76) (function)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#local-variable-shadowing
+INFO:Detectors:
+BrainLootbox.addLootBox(string,uint256,uint256[]) (BrainLootbox.sol#44-59) has external calls inside a loop: lootbox[createdLootboxes].cardIds.push(IBrainNFT(NFTAddress).addCard(_cardAmounts[i])) (BrainLootbox.sol#53)
+BrainLootbox.redeem(uint256,address) (BrainLootbox.sol#65-84) has external calls inside a loop: IBrainNFT(NFTAddress).mint(to,lootbox[id].cardIds[i],1) (BrainLootbox.sol#77)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation/#calls-inside-a-loop
+INFO:Detectors:
+Reentrancy in LockedLPFarm.distributeDividends() (LockedLPFarm.sol#153-164):
+	External calls:
+	- IFeeDistributor(DistributorAddress).processTransfer() (LockedLPFarm.sol#155)
+	State variables written after the call(s):
+	- lastBrainBalance = currentBalance (LockedLPFarm.sol#160)
+	- magnifiedDividendPerShare = magnifiedDividendPerShare.add((value.mul(magnitude)).div(totalStaked)) (LockedLPFarm.sol#159)
+Reentrancy in LockedLP.lockLP(uint256) (LockedLP.sol#19-22):
+	External calls:
+	- LP(UniswapPair).transferFrom(msg.sender,address(this),_amount) (LockedLP.sol#20)
+	State variables written after the call(s):
+	- _mint(msg.sender,_amount) (LockedLP.sol#21)
+		- _balances[account] = _balances[account].add(amount) (@openzeppelin/contracts/token/ERC20/ERC20.sol#235)
+	- _mint(msg.sender,_amount) (LockedLP.sol#21)
+		- _totalSupply = _totalSupply.add(amount) (@openzeppelin/contracts/token/ERC20/ERC20.sol#234)
+Reentrancy in LockedLPFarm.stake(uint256) (LockedLPFarm.sol#108-116):
+	External calls:
+	- distributeDividends() (LockedLPFarm.sol#110)
+		- IFeeDistributor(DistributorAddress).processTransfer() (LockedLPFarm.sol#155)
+	- IERC20(LPAddress).transferFrom(msg.sender,address(this),amount) (LockedLPFarm.sol#111)
+	State variables written after the call(s):
+	- magnifiedDividendCorrections[msg.sender] = magnifiedDividendCorrections[msg.sender].sub((magnifiedDividendPerShare.mul(amount)).toInt256Safe()) (LockedLPFarm.sol#113)
+Reentrancy in LockedLPFarm.withdraw(uint256) (LockedLPFarm.sol#118-127):
+	External calls:
+	- distributeDividends() (LockedLPFarm.sol#121)
+		- IFeeDistributor(DistributorAddress).processTransfer() (LockedLPFarm.sol#155)
+	- IERC20(LPAddress).transfer(msg.sender,amount) (LockedLPFarm.sol#122)
+	State variables written after the call(s):
+	- magnifiedDividendCorrections[msg.sender] = magnifiedDividendCorrections[msg.sender].add((magnifiedDividendPerShare.mul(amount)).toInt256Safe()) (LockedLPFarm.sol#124)
+Reentrancy in LockedLPFarm.withdrawDividend() (LockedLPFarm.sol#166-175):
+	External calls:
+	- distributeDividends() (LockedLPFarm.sol#167)
+		- IFeeDistributor(DistributorAddress).processTransfer() (LockedLPFarm.sol#155)
+	State variables written after the call(s):
+	- withdrawnDividends[msg.sender] = withdrawnDividends[msg.sender].add(_withdrawableDividend) (LockedLPFarm.sol#170)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#reentrancy-vulnerabilities-2
+INFO:Detectors:
+Reentrancy in LockedLPFarm.distributeDividends() (LockedLPFarm.sol#153-164):
+	External calls:
+	- IFeeDistributor(DistributorAddress).processTransfer() (LockedLPFarm.sol#155)
+	Event emitted after the call(s):
+	- DividendsDistributed(value) (LockedLPFarm.sol#161)
+Reentrancy in LockedLP.lockLP(uint256) (LockedLP.sol#19-22):
+	External calls:
+	- LP(UniswapPair).transferFrom(msg.sender,address(this),_amount) (LockedLP.sol#20)
+	Event emitted after the call(s):
+	- Transfer(address(0),account,amount) (@openzeppelin/contracts/token/ERC20/ERC20.sol#236)
+		- _mint(msg.sender,_amount) (LockedLP.sol#21)
+Reentrancy in BrainLootbox.redeem(uint256,address) (BrainLootbox.sol#65-84):
+	External calls:
+	- IBrainNFT(NFTAddress).mint(to,lootbox[id].cardIds[i],1) (BrainLootbox.sol#77)
+	Event emitted after the call(s):
+	- CardRedeemed(to,id,lootbox[id].cardIds[i]) (BrainLootbox.sol#80)
+Reentrancy in LockedLPFarm.stake(uint256) (LockedLPFarm.sol#108-116):
+	External calls:
+	- distributeDividends() (LockedLPFarm.sol#110)
+		- IFeeDistributor(DistributorAddress).processTransfer() (LockedLPFarm.sol#155)
+	- IERC20(LPAddress).transferFrom(msg.sender,address(this),amount) (LockedLPFarm.sol#111)
+	Event emitted after the call(s):
+	- Staked(msg.sender,amount) (LockedLPFarm.sol#115)
+Reentrancy in BrainFarm.stake(uint256) (BrainFarm.sol#46-51):
+	External calls:
+	- IERC20(BrainAddress).transferFrom(msg.sender,address(this),amount) (BrainFarm.sol#48)
+	Event emitted after the call(s):
+	- Staked(msg.sender,amount) (BrainFarm.sol#50)
+Reentrancy in LockedLPFarm.withdraw(uint256) (LockedLPFarm.sol#118-127):
+	External calls:
+	- distributeDividends() (LockedLPFarm.sol#121)
+		- IFeeDistributor(DistributorAddress).processTransfer() (LockedLPFarm.sol#155)
+	- IERC20(LPAddress).transfer(msg.sender,amount) (LockedLPFarm.sol#122)
+	Event emitted after the call(s):
+	- Withdrawn(msg.sender,amount) (LockedLPFarm.sol#126)
+Reentrancy in BrainFarm.withdraw(uint256) (BrainFarm.sol#53-59):
+	External calls:
+	- IERC20(BrainAddress).transfer(msg.sender,amount) (BrainFarm.sol#56)
+	Event emitted after the call(s):
+	- Withdrawn(msg.sender,amount) (BrainFarm.sol#58)
+Reentrancy in LockedLPFarm.withdrawDividend() (LockedLPFarm.sol#166-175):
+	External calls:
+	- distributeDividends() (LockedLPFarm.sol#167)
+		- IFeeDistributor(DistributorAddress).processTransfer() (LockedLPFarm.sol#155)
+	Event emitted after the call(s):
+	- DividendWithdrawn(msg.sender,_withdrawableDividend) (LockedLPFarm.sol#171)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#reentrancy-vulnerabilities-3
+INFO:Detectors:
+LockedLPFarm.redeem(uint256) (LockedLPFarm.sol#133-139) uses timestamp for comparisons
+	Dangerous comparisons:
+	- require(bool,string)(points[msg.sender] >= price,Not enough points to redeem) (LockedLPFarm.sol#136)
+BrainLootbox.redeem(uint256,address) (BrainLootbox.sol#65-84) uses timestamp for comparisons
+	Dangerous comparisons:
+	- pickedCard < counted (BrainLootbox.sol#76)
+BrainFarm.redeem(uint256) (BrainFarm.sol#65-71) uses timestamp for comparisons
+	Dangerous comparisons:
+	- require(bool,string)(points[msg.sender] >= price,Not enough points to redeem) (BrainFarm.sol#68)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#block-timestamp
+INFO:Detectors:
+Address.isContract(address) (@openzeppelin/contracts/utils/Address.sol#26-35) uses assembly
+	- INLINE ASM (@openzeppelin/contracts/utils/Address.sol#33)
+Address._functionCallWithValue(address,bytes,uint256,string) (@openzeppelin/contracts/utils/Address.sol#119-140) uses assembly
+	- INLINE ASM (@openzeppelin/contracts/utils/Address.sol#132-135)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#assembly-usage
+INFO:Detectors:
+BrainToken.transfer(address,uint256) (BrainToken.sol#55-65) compares to a boolean constant:
+	-activeFee && feeException[_msgSender()] == false (BrainToken.sol#56)
+BrainToken.transferFrom(address,address,uint256) (BrainToken.sol#68-76) compares to a boolean constant:
+	-activeFee && feeException[recipient] == false (BrainToken.sol#69)
+BrainLootbox.redeem(uint256,address) (BrainLootbox.sol#65-84) compares to a boolean constant:
+	-require(bool,string)(isFarmAddress[msg.sender] == true,Only NFT Farm can call this method) (BrainLootbox.sol#66)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#boolean-equality
+INFO:Detectors:
+Different versions of Solidity is used in :
+	- Version used: ['>=0.4.22<0.8.0', '^0.6.0', '^0.6.2']
+	- ^0.6.0 (@openzeppelin/contracts/utils/EnumerableSet.sol#3)
+	- ^0.6.2 (BrainToken.sol#4)
+	- >=0.4.22<0.8.0 (Migrations.sol#2)
+	- ^0.6.0 (@openzeppelin/contracts/token/ERC1155/IERC1155Receiver.sol#3)
+	- ^0.6.2 (LockedLPFarm.sol#1)
+	- ^0.6.2 (BrainLootbox.sol#4)
+	- ^0.6.0 (ERC1155.sol#3)
+	- ^0.6.2 (BrainNFT.sol#4)
+	- ^0.6.2 (Strings.sol#1)
+	- ^0.6.2 (IBrainLootbox.sol#1)
+	- ^0.6.0 (@openzeppelin/contracts/token/ERC20/ERC20.sol#3)
+	- ^0.6.2 (@openzeppelin/contracts/utils/Address.sol#3)
+	- ^0.6.0 (@openzeppelin/contracts/introspection/ERC165.sol#3)
+	- ^0.6.0 (@openzeppelin/contracts/access/Ownable.sol#3)
+	- ^0.6.2 (LockedLP.sol#4)
+	- ^0.6.0 (@openzeppelin/contracts/introspection/IERC165.sol#3)
+	- ^0.6.2 (BrainFarm.sol#1)
+	- ^0.6.2 (presale.sol#4)
+	- ^0.6.0 (@openzeppelin/contracts/math/SafeMath.sol#3)
+	- ^0.6.2 (FeeDistributor.sol#4)
+	- ^0.6.0 (@openzeppelin/contracts/GSN/Context.sol#3)
+	- ^0.6.2 (@openzeppelin/contracts/token/ERC1155/IERC1155.sol#3)
+	- ^0.6.0 (@openzeppelin/contracts/token/ERC20/IERC20.sol#3)
+	- ^0.6.2 (@openzeppelin/contracts/token/ERC1155/IERC1155MetadataURI.sol#3)
+	- ^0.6.0 (@openzeppelin/contracts/access/AccessControl.sol#3)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#different-pragma-directives-are-used
+INFO:Detectors:
+Pragma version^0.6.0 (@openzeppelin/contracts/utils/EnumerableSet.sol#3) allows old versions
+Pragma version^0.6.2 (BrainToken.sol#4) allows old versions
+Pragma version>=0.4.22<0.8.0 (Migrations.sol#2) is too complex
+Pragma version^0.6.0 (@openzeppelin/contracts/token/ERC1155/IERC1155Receiver.sol#3) allows old versions
+Pragma version^0.6.2 (LockedLPFarm.sol#1) allows old versions
+Pragma version^0.6.2 (BrainLootbox.sol#4) allows old versions
+Pragma version^0.6.0 (ERC1155.sol#3) allows old versions
+Pragma version^0.6.2 (BrainNFT.sol#4) allows old versions
+Pragma version^0.6.2 (Strings.sol#1) allows old versions
+Pragma version^0.6.2 (IBrainLootbox.sol#1) allows old versions
+Pragma version^0.6.0 (@openzeppelin/contracts/token/ERC20/ERC20.sol#3) allows old versions
+Pragma version^0.6.2 (@openzeppelin/contracts/utils/Address.sol#3) allows old versions
+Pragma version^0.6.0 (@openzeppelin/contracts/introspection/ERC165.sol#3) allows old versions
+Pragma version^0.6.0 (@openzeppelin/contracts/access/Ownable.sol#3) allows old versions
+Pragma version^0.6.2 (LockedLP.sol#4) allows old versions
+Pragma version^0.6.0 (@openzeppelin/contracts/introspection/IERC165.sol#3) allows old versions
+Pragma version^0.6.2 (BrainFarm.sol#1) allows old versions
+Pragma version^0.6.2 (presale.sol#4) allows old versions
+Pragma version^0.6.0 (@openzeppelin/contracts/math/SafeMath.sol#3) allows old versions
+Pragma version^0.6.2 (FeeDistributor.sol#4) allows old versions
+Pragma version^0.6.0 (@openzeppelin/contracts/GSN/Context.sol#3) allows old versions
+Pragma version^0.6.2 (@openzeppelin/contracts/token/ERC1155/IERC1155.sol#3) allows old versions
+Pragma version^0.6.0 (@openzeppelin/contracts/token/ERC20/IERC20.sol#3) allows old versions
+Pragma version^0.6.2 (@openzeppelin/contracts/token/ERC1155/IERC1155MetadataURI.sol#3) allows old versions
+Pragma version^0.6.0 (@openzeppelin/contracts/access/AccessControl.sol#3) allows old versions
+solc-0.6.2 is not recommended for deployment
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#incorrect-versions-of-solidity
+INFO:Detectors:
+Low level call in Address.sendValue(address,uint256) (@openzeppelin/contracts/utils/Address.sol#53-59):
+	- (success) = recipient.call{value: amount}() (@openzeppelin/contracts/utils/Address.sol#57)
+Low level call in Address._functionCallWithValue(address,bytes,uint256,string) (@openzeppelin/contracts/utils/Address.sol#119-140):
+	- (success,returndata) = target.call{value: weiValue}(data) (@openzeppelin/contracts/utils/Address.sol#123)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#low-level-calls
+INFO:Detectors:
+Variable Migrations.last_completed_migration (Migrations.sol#6) is not in mixedCase
+Parameter LockedLPFarm.setLootboxAddress(address)._address (LockedLPFarm.sol#73) is not in mixedCase
+Parameter LockedLPFarm.setDistributorAddress(address)._address (LockedLPFarm.sol#77) is not in mixedCase
+Parameter LockedLPFarm.redeem(uint256)._lootbox (LockedLPFarm.sol#133) is not in mixedCase
+Parameter LockedLPFarm.dividendOf(address)._owner (LockedLPFarm.sol#177) is not in mixedCase
+Function LockedLPFarm.PendingWithdrawableDividendOf(address) (LockedLPFarm.sol#181-190) is not in mixedCase
+Parameter LockedLPFarm.PendingWithdrawableDividendOf(address)._owner (LockedLPFarm.sol#181) is not in mixedCase
+Parameter LockedLPFarm.withdrawableDividendOf(address)._owner (LockedLPFarm.sol#192) is not in mixedCase
+Parameter LockedLPFarm.withdrawnDividendOf(address)._owner (LockedLPFarm.sol#196) is not in mixedCase
+Parameter LockedLPFarm.accumulativeDividendOf(address)._owner (LockedLPFarm.sol#200) is not in mixedCase
+Variable LockedLPFarm.LPAddress (LockedLPFarm.sol#63) is not in mixedCase
+Variable LockedLPFarm.DistributorAddress (LockedLPFarm.sol#64) is not in mixedCase
+Variable LockedLPFarm.BrainAddress (LockedLPFarm.sol#65) is not in mixedCase
+Variable LockedLPFarm.LootboxAddress (LockedLPFarm.sol#66) is not in mixedCase
+Constant LockedLPFarm.magnitude (LockedLPFarm.sol#148) is not in UPPER_CASE_WITH_UNDERSCORES
+Parameter BrainLootbox.getPrice(uint256)._id (BrainLootbox.sol#31) is not in mixedCase
+Parameter BrainLootbox.addLootBox(string,uint256,uint256[])._name (BrainLootbox.sol#44) is not in mixedCase
+Parameter BrainLootbox.addLootBox(string,uint256,uint256[])._price (BrainLootbox.sol#44) is not in mixedCase
+Parameter BrainLootbox.addLootBox(string,uint256,uint256[])._cardAmounts (BrainLootbox.sol#44) is not in mixedCase
+Parameter BrainLootbox.remainingCards(uint256)._id (BrainLootbox.sol#61) is not in mixedCase
+Variable BrainLootbox.NFTAddress (BrainLootbox.sol#16) is not in mixedCase
+Parameter ERC1155.uri(uint256)._id (ERC1155.sol#78) is not in mixedCase
+Parameter ERC1155.tokenURI(uint256)._tokenId (ERC1155.sol#81) is not in mixedCase
+Constant ERC1155._contractURI (ERC1155.sol#84) is not in UPPER_CASE_WITH_UNDERSCORES
+Parameter Strings.strConcat(string,string,string,string,string)._a (Strings.sol#5) is not in mixedCase
+Parameter Strings.strConcat(string,string,string,string,string)._b (Strings.sol#5) is not in mixedCase
+Parameter Strings.strConcat(string,string,string,string,string)._c (Strings.sol#5) is not in mixedCase
+Parameter Strings.strConcat(string,string,string,string,string)._d (Strings.sol#5) is not in mixedCase
+Parameter Strings.strConcat(string,string,string,string,string)._e (Strings.sol#5) is not in mixedCase
+Parameter Strings.strConcat(string,string,string,string)._a (Strings.sol#22) is not in mixedCase
+Parameter Strings.strConcat(string,string,string,string)._b (Strings.sol#22) is not in mixedCase
+Parameter Strings.strConcat(string,string,string,string)._c (Strings.sol#22) is not in mixedCase
+Parameter Strings.strConcat(string,string,string,string)._d (Strings.sol#22) is not in mixedCase
+Parameter Strings.strConcat(string,string,string)._a (Strings.sol#26) is not in mixedCase
+Parameter Strings.strConcat(string,string,string)._b (Strings.sol#26) is not in mixedCase
+Parameter Strings.strConcat(string,string,string)._c (Strings.sol#26) is not in mixedCase
+Parameter Strings.strConcat(string,string)._a (Strings.sol#30) is not in mixedCase
+Parameter Strings.strConcat(string,string)._b (Strings.sol#30) is not in mixedCase
+Parameter Strings.uint2str(uint256)._i (Strings.sol#34) is not in mixedCase
+Parameter LockedLP.lockLP(uint256)._amount (LockedLP.sol#19) is not in mixedCase
+Parameter LockedLP.burn(uint256)._amount (LockedLP.sol#24) is not in mixedCase
+Variable LockedLP.UniswapPair (LockedLP.sol#13) is not in mixedCase
+Parameter BrainFarm.setLootboxAddress(address)._address (BrainFarm.sol#18) is not in mixedCase
+Parameter BrainFarm.redeem(uint256)._lootbox (BrainFarm.sol#65) is not in mixedCase
+Variable BrainFarm.BrainAddress (BrainFarm.sol#15) is not in mixedCase
+Variable BrainFarm.LootboxAddress (BrainFarm.sol#16) is not in mixedCase
+Parameter BrainPresale.setTokenPrice(uint256)._tokenPrice (presale.sol#24) is not in mixedCase
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#conformity-to-solidity-naming-conventions
+INFO:Detectors:
+BrainToken.constructor() (BrainToken.sol#10-13) uses literals with too many digits:
+	- _mint(msg.sender,30000000000000000000000) (BrainToken.sol#12)
+LockedLPFarm.stake(uint256) (LockedLPFarm.sol#108-116) uses literals with too many digits:
+	- require(bool,string)(amount.add(balanceOf(msg.sender)) <= 5000000000000000000,Cannot stake more than 5 Locked LP) (LockedLPFarm.sol#109)
+BrainFarm.stake(uint256) (BrainFarm.sol#46-51) uses literals with too many digits:
+	- require(bool,string)(amount.add(balanceOf(msg.sender)) <= 5000000000000000000,Cannot stake more than 5 BRAIN) (BrainFarm.sol#47)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#too-many-digits
+INFO:Detectors:
+FeeDistributor.artistFundRatio (FeeDistributor.sol#31) should be constant
+FeeDistributor.burnAddress (FeeDistributor.sol#21) should be constant
+FeeDistributor.burnRatio (FeeDistributor.sol#22) should be constant
+FeeDistributor.devAddress1 (FeeDistributor.sol#24) should be constant
+FeeDistributor.devAddress2 (FeeDistributor.sol#27) should be constant
+FeeDistributor.devRatio1 (FeeDistributor.sol#25) should be constant
+FeeDistributor.devRatio2 (FeeDistributor.sol#28) should be constant
+FeeDistributor.farmRatio (FeeDistributor.sol#34) should be constant
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#state-variables-that-could-be-declared-constant
+INFO:Detectors:
+addFeeException(address) should be declared external:
+	- BrainToken.addFeeException(address) (BrainToken.sol#28-31)
+removeFeeException(address) should be declared external:
+	- BrainToken.removeFeeException(address) (BrainToken.sol#33-36)
+setTransferFee(uint256) should be declared external:
+	- BrainToken.setTransferFee(uint256) (BrainToken.sol#38-47)
+setTransferFeeRecipient(address) should be declared external:
+	- BrainToken.setTransferFeeRecipient(address) (BrainToken.sol#49-52)
+transfer(address,uint256) should be declared external:
+	- ERC20.transfer(address,uint256) (@openzeppelin/contracts/token/ERC20/ERC20.sol#117-120)
+	- BrainToken.transfer(address,uint256) (BrainToken.sol#55-65)
+transferFrom(address,address,uint256) should be declared external:
+	- BrainToken.transferFrom(address,address,uint256) (BrainToken.sol#68-76)
+	- ERC20.transferFrom(address,address,uint256) (@openzeppelin/contracts/token/ERC20/ERC20.sol#153-157)
+setCompleted(uint256) should be declared external:
+	- Migrations.setCompleted(uint256) (Migrations.sol#16-18)
+setLootboxAddress(address) should be declared external:
+	- LockedLPFarm.setLootboxAddress(address) (LockedLPFarm.sol#73-75)
+setDistributorAddress(address) should be declared external:
+	- LockedLPFarm.setDistributorAddress(address) (LockedLPFarm.sol#77-79)
+stake(uint256) should be declared external:
+	- LockedLPFarm.stake(uint256) (LockedLPFarm.sol#108-116)
+redeem(uint256) should be declared external:
+	- LockedLPFarm.redeem(uint256) (LockedLPFarm.sol#133-139)
+withdrawDividend() should be declared external:
+	- LockedLPFarm.withdrawDividend() (LockedLPFarm.sol#166-175)
+dividendOf(address) should be declared external:
+	- LockedLPFarm.dividendOf(address) (LockedLPFarm.sol#177-179)
+PendingWithdrawableDividendOf(address) should be declared external:
+	- LockedLPFarm.PendingWithdrawableDividendOf(address) (LockedLPFarm.sol#181-190)
+withdrawnDividendOf(address) should be declared external:
+	- LockedLPFarm.withdrawnDividendOf(address) (LockedLPFarm.sol#196-198)
+getPrice(uint256) should be declared external:
+	- BrainLootbox.getPrice(uint256) (BrainLootbox.sol#31-33)
+addLootBox(string,uint256,uint256[]) should be declared external:
+	- BrainLootbox.addLootBox(string,uint256,uint256[]) (BrainLootbox.sol#44-59)
+remainingCards(uint256) should be declared external:
+	- BrainLootbox.remainingCards(uint256) (BrainLootbox.sol#61-63)
+redeem(uint256,address) should be declared external:
+	- BrainLootbox.redeem(uint256,address) (BrainLootbox.sol#65-84)
+tokenURI(uint256) should be declared external:
+	- ERC1155.tokenURI(uint256) (ERC1155.sol#81-83)
+contractURI() should be declared external:
+	- ERC1155.contractURI() (ERC1155.sol#85-87)
+balanceOf(address,uint256) should be declared external:
+	- ERC1155.balanceOf(address,uint256) (ERC1155.sol#97-100)
+balanceOfBatch(address[],uint256[]) should be declared external:
+	- ERC1155.balanceOfBatch(address[],uint256[]) (ERC1155.sol#109-128)
+setApprovalForAll(address,bool) should be declared external:
+	- ERC1155.setApprovalForAll(address,bool) (ERC1155.sol#133-138)
+safeTransferFrom(address,address,uint256,uint256,bytes) should be declared external:
+	- ERC1155.safeTransferFrom(address,address,uint256,uint256,bytes) (ERC1155.sol#150-177)
+safeBatchTransferFrom(address,address,uint256[],uint256[],bytes) should be declared external:
+	- ERC1155.safeBatchTransferFrom(address,address,uint256[],uint256[],bytes) (ERC1155.sol#182-218)
+addCard(uint256) should be declared external:
+	- BrainNFT.addCard(uint256) (BrainNFT.sol#23-30)
+mint(address,uint256,uint256) should be declared external:
+	- BrainNFT.mint(address,uint256,uint256) (BrainNFT.sol#32-37)
+burn(uint256,uint256) should be declared external:
+	- BrainNFT.burn(uint256,uint256) (BrainNFT.sol#39-41)
+name() should be declared external:
+	- ERC20.name() (@openzeppelin/contracts/token/ERC20/ERC20.sol#66-68)
+symbol() should be declared external:
+	- ERC20.symbol() (@openzeppelin/contracts/token/ERC20/ERC20.sol#74-76)
+decimals() should be declared external:
+	- ERC20.decimals() (@openzeppelin/contracts/token/ERC20/ERC20.sol#91-93)
+totalSupply() should be declared external:
+	- ERC20.totalSupply() (@openzeppelin/contracts/token/ERC20/ERC20.sol#98-100)
+balanceOf(address) should be declared external:
+	- ERC20.balanceOf(address) (@openzeppelin/contracts/token/ERC20/ERC20.sol#105-107)
+allowance(address,address) should be declared external:
+	- ERC20.allowance(address,address) (@openzeppelin/contracts/token/ERC20/ERC20.sol#125-127)
+approve(address,uint256) should be declared external:
+	- ERC20.approve(address,uint256) (@openzeppelin/contracts/token/ERC20/ERC20.sol#136-139)
+increaseAllowance(address,uint256) should be declared external:
+	- ERC20.increaseAllowance(address,uint256) (@openzeppelin/contracts/token/ERC20/ERC20.sol#171-174)
+decreaseAllowance(address,uint256) should be declared external:
+	- ERC20.decreaseAllowance(address,uint256) (@openzeppelin/contracts/token/ERC20/ERC20.sol#190-193)
+supportsInterface(bytes4) should be declared external:
+	- ERC165.supportsInterface(bytes4) (@openzeppelin/contracts/introspection/ERC165.sol#35-37)
+owner() should be declared external:
+	- Ownable.owner() (@openzeppelin/contracts/access/Ownable.sol#35-37)
+renounceOwnership() should be declared external:
+	- Ownable.renounceOwnership() (@openzeppelin/contracts/access/Ownable.sol#54-57)
+transferOwnership(address) should be declared external:
+	- Ownable.transferOwnership(address) (@openzeppelin/contracts/access/Ownable.sol#63-67)
+lockLP(uint256) should be declared external:
+	- LockedLP.lockLP(uint256) (LockedLP.sol#19-22)
+burn(uint256) should be declared external:
+	- LockedLP.burn(uint256) (LockedLP.sol#24-26)
+setLootboxAddress(address) should be declared external:
+	- BrainFarm.setLootboxAddress(address) (BrainFarm.sol#18-20)
+stake(uint256) should be declared external:
+	- BrainFarm.stake(uint256) (BrainFarm.sol#46-51)
+redeem(uint256) should be declared external:
+	- BrainFarm.redeem(uint256) (BrainFarm.sol#65-71)
+setTokenPrice(uint256) should be declared external:
+	- BrainPresale.setTokenPrice(uint256) (presale.sol#24-26)
+withdraw(address) should be declared external:
+	- BrainPresale.withdraw(address) (presale.sol#28-35)
+buy() should be declared external:
+	- BrainPresale.buy() (presale.sol#41-45)
+pendingFarmAmount() should be declared external:
+	- FeeDistributor.pendingFarmAmount() (FeeDistributor.sol#36-48)
+processTransfer() should be declared external:
+	- FeeDistributor.processTransfer() (FeeDistributor.sol#50-62)
+getRoleMemberCount(bytes32) should be declared external:
+	- AccessControl.getRoleMemberCount(bytes32) (@openzeppelin/contracts/access/AccessControl.sol#95-97)
+getRoleMember(bytes32,uint256) should be declared external:
+	- AccessControl.getRoleMember(bytes32,uint256) (@openzeppelin/contracts/access/AccessControl.sol#111-113)
+getRoleAdmin(bytes32) should be declared external:
+	- AccessControl.getRoleAdmin(bytes32) (@openzeppelin/contracts/access/AccessControl.sol#121-123)
+grantRole(bytes32,address) should be declared external:
+	- AccessControl.grantRole(bytes32,address) (@openzeppelin/contracts/access/AccessControl.sol#135-139)
+revokeRole(bytes32,address) should be declared external:
+	- AccessControl.revokeRole(bytes32,address) (@openzeppelin/contracts/access/AccessControl.sol#150-154)
+renounceRole(bytes32,address) should be declared external:
+	- AccessControl.renounceRole(bytes32,address) (@openzeppelin/contracts/access/AccessControl.sol#170-174)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#public-function-that-could-be-declared-external
+INFO:Slither:. analyzed (31 contracts with 46 detectors), 212 result(s) found
+INFO:Slither:Use https://crytic.io/ to get access to additional detectors and Github integration
