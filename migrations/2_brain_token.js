@@ -5,24 +5,23 @@ const LockedLPFarm = artifacts.require("LockedLPFarm");
 const FeeDistributor = artifacts.require("FeeDistributor");
 const BrainPresale = artifacts.require("BrainPresale");
 const BrainLootbox = artifacts.require("BrainLootbox");
+const LockedLP = artifacts.require("LockedLP");
 
 module.exports = async (deployer) => {
   await deployer.deploy(BrainToken);
   await deployer.deploy(BrainPresale, 100, BrainToken.address);
+  await deployer.deploy(BrainNFT);
+  await deployer.deploy(BrainFarm, BrainToken.address);
+  await deployer.deploy(LockedLP, BrainToken.address);
+
+  await deployer.deploy(LockedLPFarm, BrainToken.address, LockedLP.address);
   await deployer.deploy(
     FeeDistributor,
     BrainToken.address,
-    "0x0000000000000000000000000000000000000002",
-    "0x0000000000000000000000000000000000000003"
+    LockedLPFarm.address,
+    "0xDDfF1Ddfb0608964053e9Bf767F2253101247bfb"
   );
-  await deployer.deploy(BrainNFT);
-  await deployer.deploy(BrainFarm, BrainToken.address);
-  await deployer.deploy(
-    LockedLPFarm,
-    BrainToken.address,
-    BrainToken.address,
-    FeeDistributor.address
-  );
+
   await deployer.deploy(
     BrainLootbox,
     BrainFarm.address,

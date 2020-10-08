@@ -66,7 +66,7 @@ contract BrainFarm is Ownable {
     uint256 price = IBrainLootbox(LootboxAddress).getPrice(_lootbox);
     require(price > 0, "Loot not found");
     require(points[msg.sender] >= price, "Not enough points to redeem");
-    IBrainLootbox(LootboxAddress).redeem(_lootbox);
+    IBrainLootbox(LootboxAddress).redeem(_lootbox, msg.sender);
     points[msg.sender] = points[msg.sender].sub(price);
   }
 }

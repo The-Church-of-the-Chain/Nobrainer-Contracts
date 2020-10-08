@@ -12,8 +12,8 @@ interface LP {
 contract LockedLP is ERC20 {
   address public UniswapPair;
   
-  constructor() public ERC20("Nobrainer.Finance Locked Univ2 BRAIN/WETH LP", "LOCKED BRAINWETH") {
-    UniswapPair = 0xb4e8C3bF57E52FbF1B0990C74d685a484D61cEA2;
+  constructor(address _lp) public ERC20("Nobrainer.Finance Locked Univ2 BRAIN/WETH LP", "LOCKED BRAINWETH") {
+    UniswapPair = _lp;
   }
 
   function lockLP(uint256 _amount) public {

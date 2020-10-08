@@ -7,7 +7,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/math/SafeMath.sol";
 
 interface IBrainNFT {
-  function addCard(uint256 maxSupply) external view returns (uint256);
+  function addCard(uint256 maxSupply) external returns (uint256);
   function mint(address to, uint256 id, uint256 amount) external;
 }
 
@@ -43,7 +43,7 @@ contract BrainLootbox is Ownable {
 
   function addLootBox(string memory _name, uint256 _price, uint256[] memory _cardAmounts) public onlyOwner returns (uint256[] memory) {
     require(_price > 0, "Price must be greater than 0");
-    createdLootboxes++;
+    createdLootboxes = createdLootboxes.add(1);
     lootbox[createdLootboxes].name = _name;
     lootbox[createdLootboxes].price = _price;
     lootbox[createdLootboxes].cardAmounts = _cardAmounts;
@@ -62,7 +62,7 @@ contract BrainLootbox is Ownable {
     return lootbox[_id].totalCards;
   }
 
-  function redeem(uint256 id, address to) public returns (uint256) {
+  function redeem(uint256 id, address to) public {
     require(isFarmAddress[msg.sender] == true, "Only NFT Farm can call this method");
     require(id != 0 && id <= createdLootboxes, "Lootbox does not exist");
     require(lootbox[id].totalCards > 0, "No cards left in lootbox");

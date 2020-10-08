@@ -56,32 +56,33 @@ interface IFeeDistributor {
 }
 
 contract LockedLPFarm is Ownable {
-    using SafeMath for uint256;
-    using SafeMathUint for uint256;
-    using SafeMathInt for int256;
-    
-    address public LPAddress;
-    address public DistributorAddress;
-    address public BrainAddress;
-    address public LootboxAddress;
+  using SafeMath for uint256;
+  using SafeMathUint for uint256;
+  using SafeMathInt for int256;
+  
+  address public LPAddress;
+  address public DistributorAddress;
+  address public BrainAddress;
+  address public LootboxAddress;
 
-    constructor(address _brain, address _lp, address _distributor) public {
-      LPAddress = _lp;
-      DistributorAddress = _distributor;
-      BrainAddress = _brain;
-    }
+  constructor(address _brain, address _lp) public {
+    LPAddress = _lp;
+    BrainAddress = _brain;
+  }
 
-    function setLootboxAddress(address _address) public onlyOwner {
-      LootboxAddress = _address;
-    }
+  function setLootboxAddress(address _address) public onlyOwner {
+    LootboxAddress = _address;
+  }
 
-    function setDistributorAddress(address _address) public onlyOwner {
-      DistributorAddress = _address;
-    }
+  function setDistributorAddress(address _address) public onlyOwner {
+    DistributorAddress = _address;
+  }
 
 	mapping(address => uint256) private lpBalance;
 	mapping(address => uint256) public lastUpdateTime;
 	mapping(address => uint256) public points;
+
+		uint256 public totalStaked;
 
 	event Staked(address indexed user, uint256 amount);
 	event Withdrawn(address indexed user, uint256 amount);
@@ -90,43 +91,43 @@ contract LockedLPFarm is Ownable {
 		if (account != address(0)) {
 			points[account] = earned(account);
 			lastUpdateTime[account] = block.timestamp;
-		}
+      		}
 		_;
 	}
 
-    function balanceOf(address account) public view returns (uint256) {
-        return lpBalance[account];
-    }
+  function balanceOf(address account) public view returns (uint256) {
+    return lpBalance[account];
+  }
 
 
-    function earned(address account) public view returns (uint256) {
-		uint256 blockTime = block.timestamp;
-		return
-			points[account].add(
-				blockTime.sub(lastUpdateTime[account]).mul(1e18).div(86400).mul(
-					(balanceOf(account).mul(25000)).div(1e18)
-				)
-			);
+  function earned(address account) public view returns (uint256) {
+    uint256 blockTime = block.timestamp;
+    return
+      points[account].add(
+        blockTime.sub(lastUpdateTime[account]).mul(1e18).div(86400).mul(
+          (balanceOf(account).mul(25000)).div(1e18)
+        )
+      );
 	}
 
 	function stake(uint256 amount) public updateReward(msg.sender) {
- 		require(amount.add(balanceOf(msg.sender)) <= 200000000000000, "Cannot stake more than 0.0002 Locked LP");
- 	    IERC20(LPAddress).transferFrom(msg.sender, address(this), amount);
- 	    totalSupply = totalSupply.add(amount);
- 	    distributeDividends();
- 	    magnifiedDividendCorrections[msg.sender] = magnifiedDividendCorrections[msg.sender].sub((magnifiedDividendPerShare.mul(amount)).toInt256Safe());
-        lpBalance[msg.sender] = lpBalance[msg.sender].add(amount);
+	  require(amount.add(balanceOf(msg.sender)) <= 200000000000000, "Cannot stake more than 0.0002 Locked LP");
+	  distributeDividends();
+	  IERC20(LPAddress).transferFrom(msg.sender, address(this), amount);
+	  totalStaked = totalStaked.add(amount);
+    magnifiedDividendCorrections[msg.sender] = magnifiedDividendCorrections[msg.sender].sub((magnifiedDividendPerShare.mul(amount)).toInt256Safe());
+	  lpBalance[msg.sender] = lpBalance[msg.sender].add(amount);
 		emit Staked(msg.sender, amount);
 	}
 
 	function withdraw(uint256 amount) public updateReward(msg.sender) {
 		require(amount > 0, "Cannot withdraw 0");
 		require(amount <= balanceOf(msg.sender), "Cannot withdraw more than balance");
-		IERC20(LPAddress).transfer(msg.sender, amount);
-		totalSupply = totalSupply.sub(amount);
 		distributeDividends();
-		magnifiedDividendCorrections[msg.sender] = magnifiedDividendCorrections[msg.sender].add((magnifiedDividendPerShare.mul(amount)).toInt256Safe());
-        lpBalance[msg.sender] = lpBalance[msg.sender].sub(amount);
+		IERC20(LPAddress).transfer(msg.sender, amount);
+		totalStaked = totalStaked.sub(amount);
+    magnifiedDividendCorrections[msg.sender] = magnifiedDividendCorrections[msg.sender].add((magnifiedDividendPerShare.mul(amount)).toInt256Safe());
+		lpBalance[msg.sender] = lpBalance[msg.sender].sub(amount);
 		emit Withdrawn(msg.sender, amount);
 	}
 
@@ -135,12 +136,11 @@ contract LockedLPFarm is Ownable {
 	}
     
 	function redeem(uint256 _lootbox) public updateReward(msg.sender) {
-	    distributeDividends();
-	    uint256 price = IBrainLootbox(LootboxAddress).getPrice(_lootbox);
-		require(price > 0, "Loot not found");
-		require(points[msg.sender] >= price, "Not enough points to redeem");
-		IBrainLootbox(LootboxAddress).redeem(_lootbox);
-		points[msg.sender] = points[msg.sender].sub(price);
+    uint256 price = IBrainLootbox(LootboxAddress).getPrice(_lootbox);
+    require(price > 0, "Loot not found");
+    require(points[msg.sender] >= price, "Not enough points to redeem");
+    IBrainLootbox(LootboxAddress).redeem(_lootbox, msg.sender);
+    points[msg.sender] = points[msg.sender].sub(price);
 	}
 	
 	// $BRAIN Dividends
@@ -148,53 +148,63 @@ contract LockedLPFarm is Ownable {
 	event DividendsDistributed(uint256 amount);
 	event DividendWithdrawn(address to, uint256 amount);
 	
-	uint256 private totalSupply;
-	address public Distributor;
-	
-	function setDistributor(address _Distributor) public onlyOwner {
-	   Distributor = _Distributor;
-	}
-	
-	uint256 constant internal magnitude = 2**128;
-    uint256 internal magnifiedDividendPerShare;
-    mapping(address => int256) internal magnifiedDividendCorrections;
-    mapping(address => uint256) internal withdrawnDividends;
-    
-    uint256 internal lastBrainBalance;
-    
-    function distributeDividends() public {
-        uint256 currentBrainBalance = IERC20(BrainAddress).balanceOf(address(this));
-        if (totalSupply > 0 && currentBrainBalance > lastBrainBalance) {
-            uint256 amount = currentBrainBalance.sub(lastBrainBalance);
-            lastBrainBalance = amount;
-            magnifiedDividendPerShare = magnifiedDividendPerShare.add(amount.mul(magnitude) / totalSupply);
-            emit DividendsDistributed(amount);
-        }
-    }
-    
-    function accumulativeDividendOf(address _owner) public view returns(uint256) {
-        return magnifiedDividendPerShare.mul(balanceOf(_owner)).toInt256Safe().add(magnifiedDividendCorrections[_owner]).toUint256Safe() / magnitude;
-    }
-    
-    function withdrawableDividendOf(address _owner) public view returns(uint256) {
-        return accumulativeDividendOf(_owner).sub(withdrawnDividends[_owner]);
-    }
+	uint256 private lastBrainBalance;
 
-    function pendingDividendsOf(address _owner) public view returns (uint256) {
-	uint256 pending = IFeeDistributor(DistributorAddress).pendingFarmAmount();
-	uint256 magnified = magnifiedDividendPerShare.add(pending.mul(magnitude) / totalSupply);
-	uint256 accumulativeDiv = magnified.mul(balanceOf(_owner)).toInt256Safe().add(magnifiedDividendCorrections[_owner]).toUint256Safe() / magnitude;
-	return accumulativeDiv.sub(withdrawnDividends[_owner]);
+  uint256 constant public magnitude = 2**128;
+  uint256 public magnifiedDividendPerShare;
+  mapping(address => int256) public magnifiedDividendCorrections;
+  mapping(address => uint256) public withdrawnDividends;
+
+  function distributeDividends() public {
+    if (totalStaked > 0) {
+      IFeeDistributor(DistributorAddress).processTransfer();
+      uint256 currentBalance = IERC20(BrainAddress).balanceOf(address(this));
+      if (currentBalance > lastBrainBalance) {
+        uint256 value = currentBalance.sub(lastBrainBalance);
+        magnifiedDividendPerShare = magnifiedDividendPerShare.add((value.mul(magnitude)).div(totalStaked));
+        lastBrainBalance = currentBalance;
+        emit DividendsDistributed(value);
+      }
     }
+  }
+
+  function withdrawDividend() public {
+    distributeDividends();
+    uint256 _withdrawableDividend = withdrawableDividendOf(msg.sender);
+    if (_withdrawableDividend > 0) {
+      withdrawnDividends[msg.sender] = withdrawnDividends[msg.sender].add(_withdrawableDividend);
+      emit DividendWithdrawn(msg.sender, _withdrawableDividend);
+      IERC20(BrainAddress).transfer(msg.sender, _withdrawableDividend);
+      lastBrainBalance = lastBrainBalance.sub(_withdrawableDividend);
+    }
+  }
+
+  function dividendOf(address _owner) public view returns(uint256) {
+    return withdrawableDividendOf(_owner);
+  }
+
+  function PendingWithdrawableDividendOf(address _owner) public view returns (uint256) {
+    uint256 value = IFeeDistributor(DistributorAddress).pendingFarmAmount();
+    if (value > 0) {
+      uint256 magnified = magnifiedDividendPerShare.add((value.mul(magnitude)).div(totalStaked));
+      uint256 accum = magnified.mul(balanceOf(_owner)).toInt256Safe().add(magnifiedDividendCorrections[_owner]).toUint256Safe() / magnitude;
+      return accum.sub(withdrawnDividends[_owner]);
+    } else {
+      return withdrawableDividendOf(_owner);
+    }
+  }
+
+  function withdrawableDividendOf(address _owner) public view returns(uint256) {
+    return accumulativeDividendOf(_owner).sub(withdrawnDividends[_owner]);
+  }
+
+  function withdrawnDividendOf(address _owner) public view returns(uint256) {
+    return withdrawnDividends[_owner];
+  }
+
+  function accumulativeDividendOf(address _owner) public view returns(uint256) {
+    return magnifiedDividendPerShare.mul(balanceOf(_owner)).toInt256Safe()
+      .add(magnifiedDividendCorrections[_owner]).toUint256Safe() / magnitude;
+  }
     
-    function withdrawDividend() public {
-        distributeDividends();
-        uint256 _withdrawableDividend = withdrawableDividendOf(msg.sender);
-        if (_withdrawableDividend > 0) {
-            withdrawnDividends[msg.sender] = withdrawnDividends[msg.sender].add(_withdrawableDividend);
-            emit DividendWithdrawn(msg.sender, _withdrawableDividend);
-            IERC20(BrainAddress).transfer(msg.sender, _withdrawableDividend);
-            lastBrainBalance = lastBrainBalance.sub(_withdrawableDividend);
-        }
-    }
 }
