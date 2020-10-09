@@ -1,11 +1,12 @@
 pragma solidity 0.6.2;
 
-import "@openzeppelin/contracts/math/SafeMath.sol";
+import "./SafeMath.sol";
 import "./Ownable.sol";
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "./IERC20.sol";
 import "./IBrainLootbox.sol";
+import "./ReentrancyGuard.sol";
 
-contract BrainFarm is Ownable {
+contract BrainFarm is Ownable, ReentrancyGuard {
   using SafeMath for uint256;
 
   constructor(address _brain) public {
@@ -38,6 +39,16 @@ contract BrainFarm is Ownable {
     return brainBalance[account];
   }
 
+  /*
+  The block.timestamp environment variable is used to determine a control flow decision. 
+  Note that the values of variables like coinbase, gaslimit, block number and timestamp are predictable and can be manipulated by a malicious miner. 
+  Also keep in mind that attackers know hashes of earlier blocks. 
+  Don't use any of those environment variables as sources of randomness and be aware that use of these variables introduces a certain level of trust into miners.
+  https://swcregistry.io/docs/SWC-116
+  
+  AUDITOR NOTE: It appers that intent of this function is to add incremental rewards over time.
+    Thus this vulnerability is not relly applicable to this function.
+  */
   function earned(address account) public view returns (uint256) {
     uint256 blockTime = block.timestamp;
     return points[account].add(blockTime.sub(lastUpdateTime[account]).mul(1e18).div(86400).mul(balanceOf(account).div(1e18)));
@@ -49,31 +60,34 @@ contract BrainFarm is Ownable {
   Reentering the contract in an intermediate state may lead to unexpected behaviour. 
   Make sure that no state modifications are executed after this call and/or reentrancy guards are in place.
   https://swcregistry.io/docs/SWC-107
+  
+  AUDITOR NOTE: Fix implmented, and vulnerable code commented out.
   */
-  function stake(uint256 amount) public updateReward(msg.sender) {
-    require(amount.add(balanceOf(msg.sender)) <= 5000000000000000000, "Cannot stake more than 5 BRAIN");
-    IERC20(BrainAddress).transferFrom(msg.sender, address(this), amount);
-    brainBalance[msg.sender] = brainBalance[msg.sender].add(amount);
-    emit Staked(msg.sender, amount);
+  function stake(uint256 amount) public updateReward(_msgSender()) nonReentrant {
+    require(amount.add(balanceOf(_msgSender())) <= 5000000000000000000, "Cannot stake more than 5 BRAIN");
+    //IERC20(BrainAddress).transferFrom(_msgSender(), address(this), amount);
+    brainBalance[_msgSender()] = brainBalance[_msgSender()].add(amount);
+    IERC20(BrainAddress).transferFrom(_msgSender(), address(this), amount);
+    emit Staked(_msgSender(), amount);
   }
 
-  function withdraw(uint256 amount) public updateReward(msg.sender) {
+  function withdraw(uint256 amount) public updateReward(_msgSender()) nonReentrant {
     require(amount > 0, "Cannot withdraw 0");
-    require(amount <= balanceOf(msg.sender), "Cannot withdraw more than balance");
-    IERC20(BrainAddress).transfer(msg.sender, amount);
-    brainBalance[msg.sender] = brainBalance[msg.sender].sub(amount);
-    emit Withdrawn(msg.sender, amount);
+    require(amount <= balanceOf(_msgSender()), "Cannot withdraw more than balance");
+    IERC20(BrainAddress).transfer(_msgSender(), amount);
+    brainBalance[_msgSender()] = brainBalance[_msgSender()].sub(amount);
+    emit Withdrawn(_msgSender(), amount);
   }
 
   function exit() external {
-    withdraw(balanceOf(msg.sender));
+    withdraw(balanceOf(_msgSender()));
   }
     
-  function redeem(uint256 _lootbox) public updateReward(msg.sender) {
+  function redeem(uint256 _lootbox) public updateReward(_msgSender()) nonReentrant {
     uint256 price = IBrainLootbox(LootboxAddress).getPrice(_lootbox);
     require(price > 0, "Loot not found");
-    require(points[msg.sender] >= price, "Not enough points to redeem");
-    IBrainLootbox(LootboxAddress).redeem(_lootbox, msg.sender);
-    points[msg.sender] = points[msg.sender].sub(price);
+    require(points[_msgSender()] >= price, "Not enough points to redeem");
+    IBrainLootbox(LootboxAddress).redeem(_lootbox, _msgSender());
+    points[_msgSender()] = points[_msgSender()].sub(price);
   }
 }

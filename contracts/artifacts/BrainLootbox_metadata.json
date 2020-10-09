@@ -295,24 +295,17 @@
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": true,
+			"enabled": false,
 			"runs": 200
 		},
 		"remappings": []
 	},
 	"sources": {
-		"@openzeppelin/contracts/math/SafeMath.sol": {
-			"keccak256": "0x8d890f7a794b66b8b3ab54779603c254f85ee0d436dd4a17b3543c6629b726f8",
-			"urls": [
-				"bzz-raw://887bb68104c8f862a66939b192a85e79564bed9bbe72cda6240fd89bbea642fd",
-				"dweb:/ipfs/QmbC56SFqW7UCx26RfPFWPiEXnQTJXSBA5r4SrojRMHqeM"
-			]
-		},
 		"localhost/contracts/BrainLootbox.sol": {
-			"keccak256": "0x94380559a7a70b09a39d548610930f1ca4373a34c7ceccb2f16ab3ecb2ac6007",
+			"keccak256": "0x010533209ff5c03a4061b61516f31c37b87c361e2b1a6155546b596d7816829a",
 			"urls": [
-				"bzz-raw://f1aeb17a5052865bbb6ed5572f00c8914a15a986d52fd26633fb0721f0cd785c",
-				"dweb:/ipfs/QmZRzJ4r6fuaTt9BBeCepHP4TfEh5XkLh4yS58UFWrh7Jy"
+				"bzz-raw://ca497ef3075b0be8e8a84ea0c223ce03edc23e6301cd7cc392d756a66e411637",
+				"dweb:/ipfs/QmSprebZB83uPYkbNZnrbfX2LCzJq3vkxCy8auc5AB7Cj1"
 			]
 		},
 		"localhost/contracts/Context.sol": {
@@ -327,6 +320,13 @@
 			"urls": [
 				"bzz-raw://44310461687026531f76aa11c73d82b086f0a37c9828295ca4c98f6e85eed655",
 				"dweb:/ipfs/QmTPo4m787hYjadBHMDPe51ixWBuCpkoUeRNbJ7xWFkvFi"
+			]
+		},
+		"localhost/contracts/SafeMath.sol": {
+			"keccak256": "0xeb6f9c19f7b8f5e93484ee6ba0a1db49c525e4b9ee3478f18b49885ab6a94e32",
+			"urls": [
+				"bzz-raw://cf07d8df6d15917402cd6d99af026f6b57af785380b80ed77beed774e373e349",
+				"dweb:/ipfs/QmcZRotSui91hCWzze4pBkegXAiXdNQHguZJFE16UVobgx"
 			]
 		}
 	},

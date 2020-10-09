@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.6.2;
 
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "./ERC20.sol";
 
 interface LP {
   function transferFrom(address sender, address recipient, uint256 amount) external returns (bool);

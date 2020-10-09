@@ -347,31 +347,17 @@
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": true,
+			"enabled": false,
 			"runs": 200
 		},
 		"remappings": []
 	},
 	"sources": {
-		"@openzeppelin/contracts/math/SafeMath.sol": {
-			"keccak256": "0x8d890f7a794b66b8b3ab54779603c254f85ee0d436dd4a17b3543c6629b726f8",
+		"localhost/contracts/Address.sol": {
+			"keccak256": "0x955dba657832307ace87cebde189dbafcc9c8d6c271761f8b095c7fd973a5882",
 			"urls": [
-				"bzz-raw://887bb68104c8f862a66939b192a85e79564bed9bbe72cda6240fd89bbea642fd",
-				"dweb:/ipfs/QmbC56SFqW7UCx26RfPFWPiEXnQTJXSBA5r4SrojRMHqeM"
-			]
-		},
-		"@openzeppelin/contracts/token/ERC20/IERC20.sol": {
-			"keccak256": "0x979000648732c91f60536a23950b83e11a1f47204cb280cf2b8dc0a1280258da",
-			"urls": [
-				"bzz-raw://880bda603cd4c34690385db83633dd3918de7a96d9361089d9329ca81ef4e273",
-				"dweb:/ipfs/QmRZqTMmCpNYqCcEsbMMtvF6NYKDarNnNbJseZ2LLDrevA"
-			]
-		},
-		"@openzeppelin/contracts/utils/Address.sol": {
-			"keccak256": "0xb45dc9b431fd17029e917725b523f7302f31d3501c11f9bf4f985d2b088d36d3",
-			"urls": [
-				"bzz-raw://5e276244483cce4d0765d5cd229141a3aa98761e0034736dcd7887e5235acb29",
-				"dweb:/ipfs/QmTrizLJ2MCYuaG8YPwg9umQ3XvCd3xjrwkzjcjqvSxYH4"
+				"bzz-raw://16972073135801cb4a78a336c73f641f8b4749ff0ccf9f2ba0c0069434415f31",
+				"dweb:/ipfs/QmXeAHQtzDv9GAWw7JE72CQNUZ5VL8mWENb1xvvNmmxFfr"
 			]
 		},
 		"localhost/contracts/Context.sol": {
@@ -382,10 +368,24 @@
 			]
 		},
 		"localhost/contracts/ERC20.sol": {
-			"keccak256": "0x43f2b1131b98c106367b44db572fe8a1654c4e82f32c361c1f1f1d2442dafb71",
+			"keccak256": "0x397914810ef7f13d8a61479f06308ce746da9807983009382f62d61ff9d554b6",
 			"urls": [
-				"bzz-raw://7d82cb7adc7ff5b53c1248a1d1d94e8136ae37bb44d25e790ce4215e0b63cb28",
-				"dweb:/ipfs/QmPJqxTeZwv2jyGjf5DUADjtubjzeaTnPgNUNDjtTT8dxZ"
+				"bzz-raw://206f6ba43a99a9b8bb4988e5be45fefa1d1665c5523776131daa3ce207696e09",
+				"dweb:/ipfs/QmUUPXcEWXvKL7uGnnBunQRuLqHayZ7Pj8Mt6wsFwAWYrj"
+			]
+		},
+		"localhost/contracts/IERC20.sol": {
+			"keccak256": "0x8dd5815fb0ef0e831d979f3d32bfab33ebbdf9cc87afaecc140477709f9b3955",
+			"urls": [
+				"bzz-raw://40196e7710afee9365a0fa7d041ebd05376e0bf77ba8374186562816e609a573",
+				"dweb:/ipfs/QmNwuXWmJ7u7i6UYCN5AXKeFFrZA7McUJUohb2cTt4hPWb"
+			]
+		},
+		"localhost/contracts/SafeMath.sol": {
+			"keccak256": "0xeb6f9c19f7b8f5e93484ee6ba0a1db49c525e4b9ee3478f18b49885ab6a94e32",
+			"urls": [
+				"bzz-raw://cf07d8df6d15917402cd6d99af026f6b57af785380b80ed77beed774e373e349",
+				"dweb:/ipfs/QmcZRotSui91hCWzze4pBkegXAiXdNQHguZJFE16UVobgx"
 			]
 		}
 	},

@@ -3,8 +3,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.6.2;
 
-import "@openzeppelin/contracts/math/SafeMath.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
+import "./SafeMath.sol";
+import "./Ownable.sol";
 
 
 interface BRAIN {

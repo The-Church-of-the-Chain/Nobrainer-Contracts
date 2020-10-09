@@ -9,7 +9,7 @@ import "./ERC20.sol";
 contract BrainToken is ERC20, Ownable {
   constructor() public ERC20("Nobrainer.Finance", "BRAIN") { // Symbol and Name
     // Mint 30,0000 BRAIN (18 Decimals)
-    _mint(msg.sender, 30000000000000000000000);
+    _mint(_msgSender(), 30000000000000000000000);
   }
 
   // Transfer Fee

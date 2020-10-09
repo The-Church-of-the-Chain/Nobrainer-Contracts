@@ -3,10 +3,11 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.6.2;
 
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "@openzeppelin/contracts/math/SafeMath.sol";
+import "./IERC20.sol";
+import "./SafeMath.sol";
+import "./ReentrancyGuard.sol";
 
-contract FeeDistributor {
+contract FeeDistributor is ReentrancyGuard {
   using SafeMath for uint256;
   address public brainAddress = 0xEA3cB156745a8d281A5fC174186C976F2dD04c2E;
 
@@ -47,15 +48,36 @@ contract FeeDistributor {
     }
   }
 
-  function processTransfer() public {
+  /*
+  A call to a user-supplied address is executed.
+  An external message call to an address specified by the caller is executed. 
+  Note that the callee account might contain arbitrary code and could re-enter any function within this contract. 
+  Reentering the contract in an intermediate state may lead to unexpected behaviour. 
+  Make sure that no state modifications are executed after this call and/or reentrancy guards are in place.
+  
+  https://swcregistry.io/docs/SWC-107
+
+  AUDITOR NOTE:
+    Vulnerability addressed by new node.
+    Vulnerable code was commented out for reference.
+    
+    Vu;nerability of wiritng data after an external call is safe in this instance.
+    Because the address being called ins a platform token, and 
+  */
+  function processTransfer() public nonReentrant {
     uint256 balance = IERC20(brainAddress).balanceOf(address(this));
     if (balance > 0) {
       uint256 fraction = balance.div(10000);
       if (fraction > 0) {
+          
         IERC20(brainAddress).transfer(burnAddress, fraction.mul(burnRatio));
+        
         IERC20(brainAddress).transfer(artistFundAddress, fraction.mul(artistFundRatio));
+        
         IERC20(brainAddress).transfer(devAddress1, fraction.mul(devRatio1));
+        
         IERC20(brainAddress).transfer(devAddress2, fraction.mul(devRatio2));
+        
         IERC20(brainAddress).transfer(farmAddress, fraction.mul(farmRatio));
       }
     }

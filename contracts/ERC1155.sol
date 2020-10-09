@@ -2,14 +2,14 @@
 
 pragma solidity 0.6.2;
 
-import "./Strings.sol";
-import "@openzeppelin/contracts/token/ERC1155/IERC1155.sol";
-import "@openzeppelin/contracts/token/ERC1155/IERC1155MetadataURI.sol";
-import "@openzeppelin/contracts/token/ERC1155/IERC1155Receiver.sol";
+import "./IERC1155.sol";
+import "./IERC1155MetadataURI.sol";
+import "./IERC1155Receiver.sol";
 import "./Context.sol";
-import "@openzeppelin/contracts/introspection/ERC165.sol";
-import "@openzeppelin/contracts/math/SafeMath.sol";
-import "@openzeppelin/contracts/utils/Address.sol";
+import "./ERC165.sol";
+import "./SafeMath.sol";
+import "./Address.sol";
+import "./Strings.sol";
 
 /**
  *
@@ -22,7 +22,6 @@ import "@openzeppelin/contracts/utils/Address.sol";
 contract ERC1155 is Context, ERC165, IERC1155, IERC1155MetadataURI {
     using SafeMath for uint256;
     using Address for address;
-    using Strings for string;
 
     // Mapping from token ID to account balances
     mapping (uint256 => mapping(address => uint256)) private _balances;
@@ -141,7 +140,8 @@ contract ERC1155 is Context, ERC165, IERC1155, IERC1155MetadataURI {
      * @dev See {IERC1155-isApprovedForAll}.
      */
     function isApprovedForAll(address account, address operator) public view override returns (bool) {
-        return _operatorApprovals[account][operator];
+        address _account = account;
+        return _operatorApprovals[_account][operator];
     }
 
     /**
@@ -422,4 +422,3 @@ contract ERC1155 is Context, ERC165, IERC1155, IERC1155MetadataURI {
         return array;
     }
 }
-

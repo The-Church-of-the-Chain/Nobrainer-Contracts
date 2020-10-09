@@ -1,8 +1,8 @@
 pragma solidity 0.6.2;
 
-import "@openzeppelin/contracts/math/SafeMath.sol";
+import "./SafeMath.sol";
 import "./Ownable.sol";
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "./IERC20.sol";
 import "./IBrainLootbox.sol";
 
 library SafeMathInt {
@@ -105,37 +105,37 @@ contract LockedLPFarm is Ownable {
     return points[account].add(blockTime.sub(lastUpdateTime[account]).mul(1e18).div(86400).mul(balanceOf(account).div(1e18)));
   }
 
-	function stake(uint256 amount) public updateReward(msg.sender) {
-	  require(amount.add(balanceOf(msg.sender)) <= 5000000000000000000, "Cannot stake more than 5 Locked LP");
+	function stake(uint256 amount) public updateReward(_msgSender()) {
+	  require(amount.add(balanceOf(_msgSender())) <= 5000000000000000000, "Cannot stake more than 5 Locked LP");
 	  distributeDividends();
-	  IERC20(LPAddress).transferFrom(msg.sender, address(this), amount);
+	  IERC20(LPAddress).transferFrom(_msgSender(), address(this), amount);
 	  totalStaked = totalStaked.add(amount);
-    magnifiedDividendCorrections[msg.sender] = magnifiedDividendCorrections[msg.sender].sub((magnifiedDividendPerShare.mul(amount)).toInt256Safe());
-	  lpBalance[msg.sender] = lpBalance[msg.sender].add(amount);
-		emit Staked(msg.sender, amount);
+    magnifiedDividendCorrections[_msgSender()] = magnifiedDividendCorrections[_msgSender()].sub((magnifiedDividendPerShare.mul(amount)).toInt256Safe());
+	  lpBalance[_msgSender()] = lpBalance[_msgSender()].add(amount);
+		emit Staked(_msgSender(), amount);
 	}
 
-	function withdraw(uint256 amount) public updateReward(msg.sender) {
+	function withdraw(uint256 amount) public updateReward(_msgSender()) {
 		require(amount > 0, "Cannot withdraw 0");
-		require(amount <= balanceOf(msg.sender), "Cannot withdraw more than balance");
+		require(amount <= balanceOf(_msgSender()), "Cannot withdraw more than balance");
 		distributeDividends();
-		IERC20(LPAddress).transfer(msg.sender, amount);
+		IERC20(LPAddress).transfer(_msgSender(), amount);
 		totalStaked = totalStaked.sub(amount);
-    magnifiedDividendCorrections[msg.sender] = magnifiedDividendCorrections[msg.sender].add((magnifiedDividendPerShare.mul(amount)).toInt256Safe());
-		lpBalance[msg.sender] = lpBalance[msg.sender].sub(amount);
-		emit Withdrawn(msg.sender, amount);
+    magnifiedDividendCorrections[_msgSender()] = magnifiedDividendCorrections[_msgSender()].add((magnifiedDividendPerShare.mul(amount)).toInt256Safe());
+		lpBalance[_msgSender()] = lpBalance[_msgSender()].sub(amount);
+		emit Withdrawn(_msgSender(), amount);
 	}
 
 	function exit() external {
-		withdraw(balanceOf(msg.sender));
+		withdraw(balanceOf(_msgSender()));
 	}
     
-	function redeem(uint256 _lootbox) public updateReward(msg.sender) {
+	function redeem(uint256 _lootbox) public updateReward(_msgSender()) {
     uint256 price = IBrainLootbox(LootboxAddress).getPrice(_lootbox);
     require(price > 0, "Loot not found");
-    require(points[msg.sender] >= price, "Not enough points to redeem");
-    IBrainLootbox(LootboxAddress).redeem(_lootbox, msg.sender);
-    points[msg.sender] = points[msg.sender].sub(price);
+    require(points[_msgSender()] >= price, "Not enough points to redeem");
+    IBrainLootbox(LootboxAddress).redeem(_lootbox, _msgSender());
+    points[_msgSender()] = points[_msgSender()].sub(price);
 	}
 	
 	// $BRAIN Dividends
@@ -165,11 +165,11 @@ contract LockedLPFarm is Ownable {
 
   function withdrawDividend() public {
     distributeDividends();
-    uint256 _withdrawableDividend = withdrawableDividendOf(msg.sender);
+    uint256 _withdrawableDividend = withdrawableDividendOf(_msgSender());
     if (_withdrawableDividend > 0) {
-      withdrawnDividends[msg.sender] = withdrawnDividends[msg.sender].add(_withdrawableDividend);
-      emit DividendWithdrawn(msg.sender, _withdrawableDividend);
-      IERC20(BrainAddress).transfer(msg.sender, _withdrawableDividend);
+      withdrawnDividends[_msgSender()] = withdrawnDividends[_msgSender()].add(_withdrawableDividend);
+      emit DividendWithdrawn(_msgSender(), _withdrawableDividend);
+      IERC20(BrainAddress).transfer(_msgSender(), _withdrawableDividend);
       lastBrainBalance = lastBrainBalance.sub(_withdrawableDividend);
     }
   }
