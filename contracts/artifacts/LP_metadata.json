@@ -1,0 +1,105 @@
+{
+	"compiler": {
+		"version": "0.6.2+commit.bacdbe57"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "sender",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "recipient",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "transferFrom",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"methods": {}
+		},
+		"userdoc": {
+			"methods": {}
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"localhost/contracts/LockedLP.sol": "LP"
+		},
+		"evmVersion": "istanbul",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"localhost/contracts/Address.sol": {
+			"keccak256": "0x955dba657832307ace87cebde189dbafcc9c8d6c271761f8b095c7fd973a5882",
+			"urls": [
+				"bzz-raw://16972073135801cb4a78a336c73f641f8b4749ff0ccf9f2ba0c0069434415f31",
+				"dweb:/ipfs/QmXeAHQtzDv9GAWw7JE72CQNUZ5VL8mWENb1xvvNmmxFfr"
+			]
+		},
+		"localhost/contracts/Context.sol": {
+			"keccak256": "0x5eb69671d05cecd8eb2797da054edd8e375cdc9880471bce5e25a283e28376e6",
+			"urls": [
+				"bzz-raw://a57463926ddacd2d1a1f78b84804e4122f2dc73e0dd1004bf86ca73f587db40d",
+				"dweb:/ipfs/QmbyQ9LXn6TF28vFT6rML7yp4EyWPWUPojkAmQRTYV3e7u"
+			]
+		},
+		"localhost/contracts/ERC20.sol": {
+			"keccak256": "0x397914810ef7f13d8a61479f06308ce746da9807983009382f62d61ff9d554b6",
+			"urls": [
+				"bzz-raw://206f6ba43a99a9b8bb4988e5be45fefa1d1665c5523776131daa3ce207696e09",
+				"dweb:/ipfs/QmUUPXcEWXvKL7uGnnBunQRuLqHayZ7Pj8Mt6wsFwAWYrj"
+			]
+		},
+		"localhost/contracts/IERC20.sol": {
+			"keccak256": "0xc6f169dd6e4c47ef4da3ca287112391750b819422f5f3f5bed32c2bdb7bef80c",
+			"urls": [
+				"bzz-raw://25abbd3d4b2ac130a0bf15aaeceacd10f986cf54e047c5f3cf1d62abc11969e0",
+				"dweb:/ipfs/QmY2z6WuhHNaBt4m92uAUhtcZpcJzu7T1bwYnhYV3zM8AP"
+			]
+		},
+		"localhost/contracts/LockedLP.sol": {
+			"keccak256": "0x246cbd7a6b676e1387edea2a4f6798a8732e1adbc2477597ecd7f6555ee96e69",
+			"urls": [
+				"bzz-raw://29330874e00deb52e0a5f0b75d5bb626d7e6639d6268176abbffc5db27efd402",
+				"dweb:/ipfs/QmRA9PhPF1KZYL9ieJ6J4KEi6b7mDsDsoks5Pe1Tp8BXn5"
+			]
+		},
+		"localhost/contracts/SafeMath.sol": {
+			"keccak256": "0xeb6f9c19f7b8f5e93484ee6ba0a1db49c525e4b9ee3478f18b49885ab6a94e32",
+			"urls": [
+				"bzz-raw://cf07d8df6d15917402cd6d99af026f6b57af785380b80ed77beed774e373e349",
+				"dweb:/ipfs/QmcZRotSui91hCWzze4pBkegXAiXdNQHguZJFE16UVobgx"
+			]
+		}
+	},
+	"version": 1
+}

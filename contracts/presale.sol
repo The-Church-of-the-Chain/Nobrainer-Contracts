@@ -1,10 +1,11 @@
 // Brain ERC20 Token Presale Contract
 // https://nobrainer.finance/
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.6.2;
+pragma solidity 0.6.2;
 
-import "@openzeppelin/contracts/math/SafeMath.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
+import "./SafeMath.sol";
+import "./Ownable.sol";
+
 
 interface BRAIN {
   function balanceOf(address account) external view returns (uint256);
